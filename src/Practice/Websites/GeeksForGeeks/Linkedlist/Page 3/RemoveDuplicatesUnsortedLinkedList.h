@@ -1,7 +1,7 @@
 /*
- * LinkedListDS.h
+ * RemoveDuplicatesUnsortedLinkedList.h
  *
- *  Created on: Apr 18, 2013
+ *  Created on: Apr 19, 2013
  *      Author: Avinash
  */
 //
@@ -38,28 +38,20 @@ using namespace __gnu_cxx;
 //	return -1;
 //}
 
-#ifndef LINKEDLISTDS_H_
-#define LINKEDLISTDS_H_
+#ifndef REMOVEDUPLICATESUNSORTEDLINKEDLIST_H_
+#define REMOVEDUPLICATESUNSORTEDLINKEDLIST_H_
 
-struct linkedListNode{
-	int value;
-	linkedListNode *next;
 
-	linkedListNode(){
-		value =0;
-		next = null;
-	}
+void RemoveDuplicatesUnsortedListON2(linkedListNode *ptr){
 
-	linkedListNode(int value){
-		this->value = value;
-		next = null;
-	}
-};
+}
 
-struct doublyLinkedList{
-	int value;
-	doublyLinkedList *next;
-	doublyLinkedList *prev;
-};
+void RemoveDuplicatesUnsortedListAuxSpace(linkedListNode *ptr){
 
-#endif /* LINKEDLISTDS_H_ */
+}
+
+void RemoveDuplicatesUnsortedListSorting(linkedListNode *ptr){
+
+}
+
+#endif /* REMOVEDUPLICATESUNSORTEDLINKEDLIST_H_ */

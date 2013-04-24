@@ -1,7 +1,7 @@
 /*
- * LinkedListDS.h
+ * MorrisInOrderTraversal.cpp
  *
- *  Created on: Apr 18, 2013
+ *  Created on: Apr 24, 2013
  *      Author: Avinash
  */
 //
@@ -33,33 +33,13 @@ using namespace std;
 using namespace __gnu_cxx;
 
 #define null NULL
-
+#define PRINT_NEW_LINE printf("\n")
 //int main(){
 //	return -1;
 //}
 
-#ifndef LINKEDLISTDS_H_
-#define LINKEDLISTDS_H_
+#ifndef MORRISINORDERTRAVERSAL_H_
+#define MORRISINORDERTRAVERSAL_H_
 
-struct linkedListNode{
-	int value;
-	linkedListNode *next;
 
-	linkedListNode(){
-		value =0;
-		next = null;
-	}
-
-	linkedListNode(int value){
-		this->value = value;
-		next = null;
-	}
-};
-
-struct doublyLinkedList{
-	int value;
-	doublyLinkedList *next;
-	doublyLinkedList *prev;
-};
-
-#endif /* LINKEDLISTDS_H_ */
+#endif /* MORRISINORDERTRAVERSAL_H_ */

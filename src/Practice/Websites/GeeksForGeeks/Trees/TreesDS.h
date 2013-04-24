@@ -1,7 +1,7 @@
 /*
- * LinkedListDS.h
+ * TreesDS.h
  *
- *  Created on: Apr 18, 2013
+ *  Created on: Apr 22, 2013
  *      Author: Avinash
  */
 //
@@ -38,28 +38,25 @@ using namespace __gnu_cxx;
 //	return -1;
 //}
 
-#ifndef LINKEDLISTDS_H_
-#define LINKEDLISTDS_H_
+#ifndef TREESDS_H_
+#define TREESDS_H_
 
-struct linkedListNode{
+struct tNode{
 	int value;
-	linkedListNode *next;
-
-	linkedListNode(){
-		value =0;
-		next = null;
-	}
-
-	linkedListNode(int value){
-		this->value = value;
-		next = null;
-	}
+	tNode *left;
+	tNode *right;
 };
 
-struct doublyLinkedList{
+struct enhancedTNode{
 	int value;
-	doublyLinkedList *next;
-	doublyLinkedList *prev;
+	enhancedTNode *left;
+	enhancedTNode *right;
+	enhancedTNode *parent;
 };
 
-#endif /* LINKEDLISTDS_H_ */
+struct levelOrderDS{
+	hash_map<int,tNode *> indexNodeMap;
+	hash_map<int,int> valueIndexMap;
+	hash_map<int,tNode *> valueNodeMap;
+};
+#endif /* TREESDS_H_ */

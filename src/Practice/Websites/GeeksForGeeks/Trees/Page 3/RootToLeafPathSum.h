@@ -1,7 +1,7 @@
 /*
- * LinkedListDS.h
+ * RootToLeafPathSum.h
  *
- *  Created on: Apr 18, 2013
+ *  Created on: Apr 24, 2013
  *      Author: Avinash
  */
 //
@@ -33,33 +33,28 @@ using namespace std;
 using namespace __gnu_cxx;
 
 #define null NULL
-
+#define PRINT_NEW_LINE printf("\n")
 //int main(){
 //	return -1;
 //}
 
-#ifndef LINKEDLISTDS_H_
-#define LINKEDLISTDS_H_
+#ifndef ROOTTOLEAFPATHSUM_H_
+#define ROOTTOLEAFPATHSUM_H_
 
-struct linkedListNode{
-	int value;
-	linkedListNode *next;
-
-	linkedListNode(){
-		value =0;
-		next = null;
+/**
+ * Tested
+ */
+bool hasPathSumRootToLeaf(tNode *ptr,int sumTillNow,int key){
+	if(ptr == NULL){
+		return false;
 	}
-
-	linkedListNode(int value){
-		this->value = value;
-		next = null;
+	if(ptr->left == NULL && ptr->right == NULL){
+		if(sumTillNow+ptr->value == key){
+			return true;
+		}
+		return false;
 	}
-};
+	return hasPathSumRootToLeaf(ptr->left,sumTillNow+ptr->value,key) || hasPathSumRootToLeaf(ptr->right,sumTillNow+ptr->value,key);
+}
 
-struct doublyLinkedList{
-	int value;
-	doublyLinkedList *next;
-	doublyLinkedList *prev;
-};
-
-#endif /* LINKEDLISTDS_H_ */
+#endif /* ROOTTOLEAFPATHSUM_H_ */

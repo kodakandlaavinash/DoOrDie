@@ -1,7 +1,7 @@
 /*
- * LinkedListDS.h
+ * RemoveDuplicatesSortedLinkedList.h
  *
- *  Created on: Apr 18, 2013
+ *  Created on: Apr 19, 2013
  *      Author: Avinash
  */
 //
@@ -29,6 +29,7 @@
 #include <queue>
 #include <limits.h>
 
+#include "../LinkedListDS.h"
 using namespace std;
 using namespace __gnu_cxx;
 
@@ -38,28 +39,12 @@ using namespace __gnu_cxx;
 //	return -1;
 //}
 
-#ifndef LINKEDLISTDS_H_
-#define LINKEDLISTDS_H_
+#ifndef REMOVEDUPLICATESSORTEDLINKEDLIST_H_
+#define REMOVEDUPLICATESSORTEDLINKEDLIST_H_
 
-struct linkedListNode{
-	int value;
-	linkedListNode *next;
+void RemoveDuplicatesSortedLinkedList(linkedListNode *ptr){
 
-	linkedListNode(){
-		value =0;
-		next = null;
-	}
+}
 
-	linkedListNode(int value){
-		this->value = value;
-		next = null;
-	}
-};
 
-struct doublyLinkedList{
-	int value;
-	doublyLinkedList *next;
-	doublyLinkedList *prev;
-};
-
-#endif /* LINKEDLISTDS_H_ */
+#endif /* REMOVEDUPLICATESSORTEDLINKEDLIST_H_ */

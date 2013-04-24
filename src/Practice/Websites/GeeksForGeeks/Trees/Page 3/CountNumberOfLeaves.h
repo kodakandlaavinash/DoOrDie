@@ -1,7 +1,7 @@
 /*
- * LinkedListDS.h
+ * CountNumberOfLeaves.h
  *
- *  Created on: Apr 18, 2013
+ *  Created on: Apr 23, 2013
  *      Author: Avinash
  */
 //
@@ -33,33 +33,30 @@ using namespace std;
 using namespace __gnu_cxx;
 
 #define null NULL
-
+#define PRINT_NEW_LINE printf("\n")
 //int main(){
 //	return -1;
 //}
 
-#ifndef LINKEDLISTDS_H_
-#define LINKEDLISTDS_H_
+#ifndef COUNTNUMBEROFLEAVES_H_
+#define COUNTNUMBEROFLEAVES_H_
 
-struct linkedListNode{
-	int value;
-	linkedListNode *next;
-
-	linkedListNode(){
-		value =0;
-		next = null;
+/**
+ * Tested
+ */
+int CountNumberOfLeaves(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	if(ptr->left == NULL && ptr->right == NULL){
+		return 1;
 	}
 
-	linkedListNode(int value){
-		this->value = value;
-		next = null;
-	}
-};
+	return CountNumberOfLeaves(ptr->left)+CountNumberOfLeaves(ptr->right);
+}
 
-struct doublyLinkedList{
-	int value;
-	doublyLinkedList *next;
-	doublyLinkedList *prev;
-};
+int CountNumberOfLeavesLevelOrder(tNode *ptr){
+	return 0;
+}
 
-#endif /* LINKEDLISTDS_H_ */
+#endif /* COUNTNUMBEROFLEAVES_H_ */

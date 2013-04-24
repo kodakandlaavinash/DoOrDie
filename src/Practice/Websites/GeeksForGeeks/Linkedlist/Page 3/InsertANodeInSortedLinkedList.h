@@ -1,7 +1,7 @@
 /*
- * LinkedListDS.h
+ * InsertANodeInSortedLinkedList.h
  *
- *  Created on: Apr 18, 2013
+ *  Created on: Apr 19, 2013
  *      Author: Avinash
  */
 //
@@ -38,28 +38,8 @@ using namespace __gnu_cxx;
 //	return -1;
 //}
 
-#ifndef LINKEDLISTDS_H_
-#define LINKEDLISTDS_H_
+#ifndef INSERTANODEINSORTEDLINKEDLIST_H_
+#define INSERTANODEINSORTEDLINKEDLIST_H_
 
-struct linkedListNode{
-	int value;
-	linkedListNode *next;
 
-	linkedListNode(){
-		value =0;
-		next = null;
-	}
-
-	linkedListNode(int value){
-		this->value = value;
-		next = null;
-	}
-};
-
-struct doublyLinkedList{
-	int value;
-	doublyLinkedList *next;
-	doublyLinkedList *prev;
-};
-
-#endif /* LINKEDLISTDS_H_ */
+#endif /* INSERTANODEINSORTEDLINKEDLIST_H_ */

@@ -69,4 +69,15 @@ int MinimumValuesInBSTLevelOrder(tNode *ptr){
 	return INT_MIN;
 }
 
+int MinimumValueInBSTWithoutRecursion(tNode *ptr){
+	if(ptr == NULL){
+		return INT_MIN;
+	}
+
+	tNode *crawler = ptr;
+	while(crawler->left != NULL){
+		crawler = crawler->left;
+	}
+	return crawler->value;
+}
 #endif /* NODEWITHMINIMUMVALUEINBST_H_ */

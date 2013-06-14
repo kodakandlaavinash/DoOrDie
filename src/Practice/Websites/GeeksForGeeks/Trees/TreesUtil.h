@@ -361,6 +361,46 @@ levelOrderDS *LevelOrderOfTree(tNode *ptr){
 
 }
 
+bool AreTwoTreesMirrorImagesToEachOther(tNode *ptr1,tNode *ptr2){
+	if(ptr1 == NULL && ptr2 == NULL){
+		return true;
+	}
+	if(ptr1 == NULL || ptr2 == NULL){
+		return false;
+	}
+
+	return (ptr1->value == ptr2->value) && AreTwoTreesMirrorImagesToEachOther(ptr1->left,ptr2->right) && AreTwoTreesMirrorImagesToEachOther(ptr1->right,ptr2->left);
+}
+
+//tNode *GetParentNodeForValue(tNode *ptr,int indexValue,int currentIndexValue){
+//	if(ptr == NULL){
+//		return NULL;
+//	}
+//	if(currentIndexValue == indexValue){
+//		return ptr;
+//	}
+//
+//
+//
+//}
+//
+//void BuildTreeForNodeIndexAndNodeValue(hash_map<int,int> indexNodeMap,tNode **ptr){
+//	tNode *newNode;
+//	if(*ptr == NULL){
+//		newNode = (tNode *)malloc(sizeof(tNode));
+//		newNode->value = 0;
+//		newNode->left = NULL;
+//		newNode->right = NULL;
+//	}
+//
+//	hash_map<int,int>::iterator itToIndexNodeMap;
+//	tNode *parentNode;
+//	for(itToIndexNodeMap = indexNodeMap.begin();itToIndexNodeMap != indexNodeMap.end();itToIndexNodeMap++){
+//	//	parentNode = GetParentNodeForValue(ptr,itToIndexNodeMap->first,0);
+//	}
+//}
+
+
 #endif /* TREESUTIL_H_ */
 
 

@@ -41,6 +41,9 @@ using namespace __gnu_cxx;
 #ifndef COMMONUTILS_H_
 #define COMMONUTILS_H_
 
+/**
+ * Tested
+ */
 void PrintStackContents(stack<tNode *> auxSpace){
 	tNode *currentNode;
 	while(!auxSpace.empty()){
@@ -51,6 +54,9 @@ void PrintStackContents(stack<tNode *> auxSpace){
 	PRINT_NEW_LINE;
 }
 
+/**
+ * Tested
+ */
 void PrintVectorContents(vector<tNode *> auxSpace){
 	vector<tNode *>::iterator itToInputVector;
 	for(itToInputVector = auxSpace.begin();itToInputVector != auxSpace.end();itToInputVector++){
@@ -60,6 +66,27 @@ void PrintVectorContents(vector<tNode *> auxSpace){
 			printf("NULL");
 		}
 	}
+}
+
+void SwapTwoElements(int *firstNumber,int *secondNumber){
+	int temp;
+	temp = *firstNumber;
+	*firstNumber = *secondNumber;
+	*secondNumber = temp;
+	return;
+}
+
+void SwapTwoElementsUsingReference(int &firstNumber,int &secondNumber){
+	int temp;
+	temp = firstNumber;
+	firstNumber = secondNumber;
+	secondNumber = temp;
+}
+
+void SwapTwoElementsXORMethod(int firstNumber,int secondNumber){
+	firstNumber = firstNumber ^ secondNumber;
+	secondNumber = firstNumber ^ secondNumber;
+	firstNumber = firstNumber ^ secondNumber;
 }
 
 #endif /* COMMONUTILS_H_ */

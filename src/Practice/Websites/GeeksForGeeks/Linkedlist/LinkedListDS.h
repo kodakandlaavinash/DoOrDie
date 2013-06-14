@@ -62,4 +62,10 @@ struct doublyLinkedList{
 	doublyLinkedList *prev;
 };
 
+struct arbitLinkedList{
+	int value;
+	arbitLinkedList *next;
+	arbitLinkedList *arbit;
+};
+
 #endif /* LINKEDLISTDS_H_ */

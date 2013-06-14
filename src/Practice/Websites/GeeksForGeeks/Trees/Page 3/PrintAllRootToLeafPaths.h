@@ -69,57 +69,61 @@ void PrintAllRootToLeafDriver(tNode *ptr){
 	stack<tNode *> rootToLeafAuxSpace;
 	PrintAllRootToLeafPaths(ptr,rootToLeafAuxSpace);
 }
-//void PrintAllRootToLeafPathsLevelOrder(tNode *ptr){
-//	if(ptr == NULL){
-//		return;
-//	}
-//	queue<tNode *> auxSpace;
-//	set<int> leafNodes;
-//	hash_map<int,tNode *> indexNodeMap;
-//	hash_map<tNode *,int> nodeIndexMap;
-//	tNode *currentNode;
-//	hash_map<int,tNode *>::iterator itToKeyNode;
-//	int currentNodeIndex;
-//	int runningIndex = -1;
-//	auxSpace.push(ptr);
-//	indexNodeMap.insert(pair<int,tNode *>(++runningIndex,ptr));
-//	nodeIndexMap.insert(pair<tNode *,int>(ptr,runningIndex));
-//
-//	while(!auxSpace.empty()){
-//		currentNode = auxSpace.front();
-//		itToKeyNode = nodeIndexMap.find(currentNode);
-//		if(itToKeyNode == nodeIndexMap.end()){
-//			printf("Something is wrong");
-//			return;
-//		}
-//		if(currentNode->left == NULL && currentNode->right == NULL){
-//			leafNodes.insert(currentNodeIndex);
-//			continue;
-//		}
-//		if(currentNode->left != NULL){
-//			auxSpace.push(currentNode->left);
-//			indexNodeMap.insert(pair<int,tNode *>((currentNodeIndex*2),currentNode->left));
-//			nodeIndexMap.insert(pair<tNode *,int>(currentNode->left,(currentNodeIndex*2)));
-//		}
-//		if(currentNode->right != NULL){
-//			auxSpace.push(currentNode->right);
-//			indexNodeMap.insert(pair<int,tNode *>((currentNodeIndex*2 +1),currentNode->right));
-//			nodeIndexMap.insert(pair<tNode *,int>(currentNode->right,(currentNodeIndex*2 + 1)));
-//		}
-//	}
-//
-//	//Print Paths using the set and hash map
-//	for(set<int>::iterator crawlerLeafIndexes = leafNodes.begin();crawlerLeafIndexes != leafNodes.end();crawlerLeafIndexes++){
-//		int indexOfLeafNode = *crawlerLeafIndexes;
-//		while(indexOfLeafNode){
-//			itToKeyNode = indexNodeMap.find(indexOfLeafNode);
-//			printf("%d\t",itToKeyNode->second->value);
-//			indexOfLeafNode /= 2;
-//		}
-//		itToKeyNode = indexNodeMap.find(indexOfLeafNode);
-//		printf("%d\t",itToKeyNode->second->value);
-//		PRINT_NEW_LINE;
-//	}
-//}
 
+void PrintAllRootToLeafNodes(tNode *ptr){
+	if(ptr == NULL){
+		return;
+	}
+
+	/**
+	 * Rank Node Value Map
+	 */
+	hash_map<int,int> rankNodeMap;
+
+	rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+	newNode->ptrToNode = ptr;
+	newNode->rank = 0;
+	queue<rankHelper *> levelOrderHelper;
+	rankHelper *currentNode;
+	int currentNodeRank;
+
+	rankNodeMap.insert(pair<int,int>(0,newNode->ptrToNode->value));
+	while(!levelOrderHelper.empty()){
+		currentNode = levelOrderHelper.front();
+		currentNodeRank = currentNode->rank;
+		if(currentNode->ptrToNode->left != NULL){
+			rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+			newNode->ptrToNode = currentNode->ptrToNode->left;
+			newNode->rank = (2 *currentNodeRank) +1;
+			levelOrderHelper.push(newNode);
+			rankNodeMap.insert(pair<int,int>((2*currentNodeRank)+1,newNode->ptrToNode->value));
+		}
+		if(currentNode->ptrToNode->right != NULL){
+			rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+			newNode->ptrToNode = currentNode->ptrToNode->right;
+			newNode->rank = (2 *currentNodeRank) +2;
+			levelOrderHelper.push(newNode);
+			rankNodeMap.insert(pair<int,int>((2*currentNodeRank)+2,newNode->ptrToNode->value));
+		}
+	}
+
+	hash_map<int,int>::iterator itToRankNodeMap;
+	hash_map<int,int>::iterator itToKey;
+	int rank;
+	for(itToRankNodeMap = rankNodeMap.begin();itToRankNodeMap != rankNodeMap.end();itToRankNodeMap++){
+		if((itToKey = rankNodeMap.find((2*itToRankNodeMap->first)+1)) == rankNodeMap.end()){
+			// Found the leaf
+			rank = itToKey->first;
+			while(rank != 0){
+				itToKey = rankNodeMap.find(rank);
+				printf("%d\t",itToKey->second);
+				rank = rank/2;
+			}
+			itToKey = rankNodeMap.find(0);
+			printf("%d\t",itToKey->second);
+			printf("\n");
+		}
+	}
+
+}
 #endif /* PRINTALLROOTTOLEAFPATHS_H_ */

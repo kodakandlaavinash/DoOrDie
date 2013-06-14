@@ -41,5 +41,29 @@ using namespace __gnu_cxx;
 #ifndef CONSTRUCTTREEFROMPREINORDER_H_
 #define CONSTRUCTTREEFROMPREINORDER_H_
 
+int FindIndexOfNodesInInOrder(int inOrder[],int startInOrder,int endInOrder,int key){
+	for(int crawler=startInOrder;crawler <= endInOrder;crawler++){
+		if(inOrder[crawler] == key){
+			return crawler;
+		}
+	}
+}
+
+void ConstructTreeUsingPreInOrder(int preOrder[],int inOrder[],int startInOrder,int endInOrder,int startPreOrder,int endPreOrder,tNode **ptr){
+	if(startInOrder > endInOrder){
+		return;
+	}
+	tNode *newNode;
+	newNode = (tNode *)malloc(sizeof(tNodes));
+	newNode->value = preOrder[startPreOrder];
+	*ptr = newNode;
+
+	int indexInInorder = FindIndexOfNodesInInOrder(inOrder,startInOrder,endInOrder,preOrder[startPreOrder]);
+	int difference = indexInInorder - startInOrder;
+	ConstructTreeUsingPreInOrder(preOrder,inOrder,startInOrder,indexInInorder-1,startPreOrder+1,startPreOrder+difference,ptr->left);
+	ConstructTreeUsingPreInOrder(preOrder,inOrder,indexInInorder+1,endInOrder,startPreOrder+difference+1,endPreOrder,ptr->right);
+
+}
+
 
 #endif /* CONSTRUCTTREEFROMPREINORDER_H_ */

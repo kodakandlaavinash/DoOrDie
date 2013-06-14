@@ -122,6 +122,70 @@ tNode * PrintLowestCommonAncestorInBST(tNode *ptr,int minKeyValue,int maxKeyValu
 //	return indexNodeMap[maxAncestoralIndex];
 //}
 
+tNode *LowestCommonAncestorInBSTLevelOrder(tNode *ptr,int value1,int value2){
+	if(ptr == NULL){
+		return NULL;
+	}
+	hash_map<int,int> rankNodeMap;
+	queue<rankHelper *> levelOrderAuxSpace;
+	rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+	newNode->ptrToNode = ptr;
+	newNode->rank = 0;
+	rankNodeMap.insert(pair<int,int>(0,ptr->value));
+	levelOrderAuxSpace.push(newNode);
+
+	rankHelper *currentNode;
+	int currentNodeRank;
+
+	rankHelper *toValue1 = NULL;
+	rankHelper *toValue2 = NULL;
+
+	while(!levelOrderAuxSpace.empty()){
+		currentNode = levelOrderAuxSpace.front();
+		currentNodeRank = currentNode->rank;
+
+		if(currentNode->ptrToNode->value == value1){
+			toValue1 = currentNode;
+		}else{
+			if(currentNode->ptrToNode->value == value2){
+				toValue2 = currentNode;
+			}
+		}
+
+		if(currentNode->ptrToNode->left != NULL){
+			rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+			newNode->ptrToNode = currentNode->ptrToNode->left;
+			newNode->rank = (2*currentNodeRank)+1;
+			levelOrderAuxSpace.push(newNode);
+			rankNodeMap.insert(pair<int,int>(2*currentNodeRank+1,newNode->ptrToNode->value));
+		}
+
+		if(currentNode->ptrToNode->right != NULL){
+			rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+			newNode->ptrToNode = currentNode->ptrToNode->right;
+			newNode->rank = (2*currentNodeRank)+2;
+			levelOrderAuxSpace.push(newNode);
+			rankNodeMap.insert(pair<int,int>(2*currentNodeRank+2,newNode->ptrToNode->value));
+		}
+	}
+
+	if(toValue1 == NULL || toValue2 ==  NULL){
+		return NULL;
+	}
+
+	int rankCrawlerValue1 = toValue1->rank,rankCrawlerValue2 = toValue2->rank;
+	while(rankCrawlerValue1 == rankCrawlerValue2){
+		if(rankCrawlerValue1 > rankCrawlerValue2){
+			rankCrawlerValue1 /= 2;
+		}else{
+			rankCrawlerValue2 /= 2;
+		}
+	}
+
+	return rankNodeMap.find(rankCrawlerValue1)->second;
+}
+
+
 /**
  * Tested
  */

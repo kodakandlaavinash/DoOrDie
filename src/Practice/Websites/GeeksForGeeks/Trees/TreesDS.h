@@ -59,4 +59,32 @@ struct levelOrderDS{
 	hash_map<int,int> valueIndexMap;
 	hash_map<int,tNode *> valueNodeMap;
 };
+
+struct augumentedTNode{
+	int value;
+	augumentedTNode *left;
+	augumentedTNode *right;
+	int helperVar;
+};
+
+struct nextRightTNode{
+	int value;
+	nextRightTNode *left;
+	nextRightTNode *right;
+	nextRightTNode *nextRight;
+};
+
+struct inOrderSuccessor{
+	int value;
+	inOrderSuccessor *left;
+	inOrderSuccessor *right;
+	inOrderSuccessor *successor;
+};
+
+
+struct rankHelper{
+	tNode *ptrToNode;
+	int rank;
+};
+
 #endif /* TREESDS_H_ */

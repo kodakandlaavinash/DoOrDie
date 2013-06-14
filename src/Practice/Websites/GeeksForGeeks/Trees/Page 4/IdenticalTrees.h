@@ -157,59 +157,7 @@ bool AreTreesIdenticalHashMap(tNode *ptr1,tNode *ptr2){
 		return false;
 	}
 
-	hash_map<int,tNode *> indexNodeMap1;
-	hash_map<int,tNode *> indexNodeMap2;
-	hash_map<const tNode *,int> nodeIndexMap1;
-	hash_map<const tNode *,int> nodeIndexMap2;
 
-//	queue<tNode *> levelOrder;
-//	//nodeIndexMap1[ptr1] = 0;
-//	indexNodeMap1[0] = ptr1;
-//	tNode *currentNode;
-//	int currentNodeIndex;
-//	while(!levelOrder.empty()){
-//		currentNode = levelOrder.front();
-//		levelOrder.pop();
-//		currentNodeIndex = nodeIndexMap1[currentNode];
-//		if(currentNode->left != NULL){
-//			nodeIndexMap1.insert(pair<int,tNode *>(currentNode->left,2*currentNodeIndex));
-//			indexNodeMap1.insert(pair<tNode *,int>(2*currentNodeIndex,currentNode->left));
-//		}
-//
-//		if(currentNode->right != NULL){
-//			nodeIndexMap1.insert(pair<int,tNode *>(currentNode->right,(2*currentNodeIndex)+1));
-//			indexNodeMap1.insert(pair<tNode *,int>((2*currentNodeIndex)+1,currentNode->right));
-//		}
-//	}
-//
-//	levelOrder.push(ptr2);
-//	nodeIndexMap2.insert(pair<int,tNode *>(ptr2,0));
-//	indexNodeMap2.insert(pair<tNode *,int>(0,ptr2));
-//	while(!levelOrder.empty()){
-//		currentNode = levelOrder.front();
-//		levelOrder.pop();
-//		currentNodeIndex = nodeIndexMap2[currentNode];
-//		if(currentNode->left != NULL){
-//			nodeIndexMap2.insert(pair<int,tNode *>(currentNode->left,2*currentNodeIndex));
-//			indexNodeMap2.insert(pair<tNode *,int>(2*currentNodeIndex,currentNode->left));
-//		}
-//
-//		if(currentNode->right != NULL){
-//			nodeIndexMap2.insert(pair<int,tNode *>(currentNode->right,(2*currentNodeIndex)+1));
-//			indexNodeMap2.insert(pair<tNode *,int>((2*currentNodeIndex)+1,currentNode->right));
-//		}
-//	}
-//
-//	hash_map<int,tNode *>::iterator itToFirstTreeHashMap;
-//	hash_map<int,tNode *>::iterator itToSecondTreeHashMap;
-//	for(itToFirstTreeHashMap = indexNodeMap1.begin();itToFirstTreeHashMap != indexNodeMap1.end();itToFirstTreeHashMap++){
-//		if((itToSecondTreeHashMap = indexNodeMap2.find(itToFirstTreeHashMap->first)) == indexNodeMap2.end()){
-//			return false;
-//		}
-//		if(itToSecondTreeHashMap->second->value != itToFirstTreeHashMap->second->value){
-//			return false;
-//		}
-//	}
 	return true;
 }
 

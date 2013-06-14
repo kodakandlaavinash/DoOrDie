@@ -47,39 +47,48 @@
 #include "../Page 3/LowestCommonAncestorInBST.h"
 #include "../Page 3/CheckIfBinaryTreeIsBST.h"
 #include "../Page 3/DiameterOfTree.h"
+#include "../Page 3/PrintNodesAtKDistanceFromRoot.h"
+#include "../Page 3/DoubleTree.h"
+#include "../Page 3/MaximumWidthOfTree.h"
+
 using namespace std;
 using namespace __gnu_cxx;
 
 #define null NULL
 
-int main(){
-	tNode *root = NULL;
-	tNode *root2 = NULL;
-	printf("TESTING ARENA FOR TREE PROGRAMS\n");
-//	CreateBinarySearchTree(&root,2);
-//	CreateBinarySearchTree(&root,1);
-//	CreateBinarySearchTree(&root,5);
-//	CreateBinarySearchTree(&root,4);
-//	CreateBinarySearchTree(&root,6);
+//int main(){
+//	tNode *root = NULL;
+//	tNode *root2 = NULL;
+//	printf("TESTING ARENA FOR TREE PROGRAMS\n");
+////	CreateBinarySearchTree(&root,2);
+////	CreateBinarySearchTree(&root,1);
+////	CreateBinarySearchTree(&root,5);
+////	CreateBinarySearchTree(&root,4);
+////	CreateBinarySearchTree(&root,6);
+////
+//	CreateBinarySearchTree(&root2,1);
+//	CreateBinarySearchTree(&root2,2);
+//	CreateBinarySearchTree(&root2,3);
+//	CreateBinarySearchTree(&root2,0);
 //
-	CreateBinarySearchTree(&root2,1);
-	CreateBinarySearchTree(&root2,2);
-	CreateBinarySearchTree(&root2,3);
-
-	//printf("%d",AreTreesIdenticalUsingTraversal(root,root2));
-	//printf("%d",AreTreesIdenticalHashMap(root,root2));
-	//printf("%d",CountNumberOfLeaves(root));
-
-	CreateBinaryTree(&root,20);
-	CreateBinaryTree(&root,3);
-	CreateBinaryTree(&root,7);
-	CreateBinaryTree(&root,1);
-	CreateBinaryTree(&root,2);
-	CreateBinaryTree(&root,4);
-	CreateBinaryTree(&root,5);
-
-	printf("%d",DiameterOfTree(root2));
-
-	return -1;
-}
+//	//printf("%d",AreTreesIdenticalUsingTraversal(root,root2));
+//	//printf("%d",AreTreesIdenticalHashMap(root,root2));
+//	//printf("%d",CountNumberOfLeaves(root));
+//
+//	CreateBinaryTree(&root,20);
+//	CreateBinaryTree(&root,3);
+//	CreateBinaryTree(&root,7);
+//	CreateBinaryTree(&root,1);
+//	CreateBinaryTree(&root,2);
+//	CreateBinaryTree(&root,4);
+//	CreateBinaryTree(&root,5);
+//
+//	PrintTreeInInOrder(root2);
+//	PRINT_NEW_LINE;
+//	printf("%d",MaximumWidthOfTree(root2));
+//	//PrintTreeInInOrder(root);
+//
+//
+//	return -1;
+//}
 

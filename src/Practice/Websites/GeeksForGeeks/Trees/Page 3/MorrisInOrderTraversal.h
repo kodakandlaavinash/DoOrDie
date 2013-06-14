@@ -41,5 +41,33 @@ using namespace __gnu_cxx;
 #ifndef MORRISINORDERTRAVERSAL_H_
 #define MORRISINORDERTRAVERSAL_H_
 
+void MorrisInOrderTraversal(tNode *ptr){
+	if(ptr == NULL){
+		return;
+	}
+	tNode *currentNode = ptr;
+	tNode *pre;
+	while(currentNode != NULL){
+		if(currentNode->left != NULL){
+			pre = currentNode->left;
+
+			while(pre->right != NULL && pre->right != currentNode){
+				pre = pre->right;
+			}
+
+			if(pre->right == NULL){
+				pre->right = currentNode;
+				currentNode = currentNode->left;
+			}else{
+				pre->right = NULL;
+				printf("%d",currentNode->value);
+				currentNode = currentNode->right;
+			}
+		}else{
+			printf("%d",currentNode->value);
+			currentNode = currentNode->right;
+		}
+	}
+}
 
 #endif /* MORRISINORDERTRAVERSAL_H_ */

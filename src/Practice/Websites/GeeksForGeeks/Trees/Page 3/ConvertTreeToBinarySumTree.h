@@ -57,4 +57,61 @@ int ConvertATreeToSumTree(tNode *ptr){
 	return 2*(ptr->value);
 }
 
+void ConvertATreeSumTree(tNode *ptr,int rank,hash_map<int,int> &rankNodeMap){
+	if(ptr == NULL){
+		return;
+	}
+	if(ptr->left == NULL && ptr->right == NULL){
+		return;
+	}
+	ConvertATreeSumTree(ptr->left,2*rank+1,rankNodeMap);
+	ConvertATreeSumTree(ptr->right,(2*rank)+2,rankNodeMap);
+	int sum = 0;
+	hash_map<int,int>::iterator itHelperToRankNodeMap;
+	if((itHelperToRankNodeMap = rankNodeMap.find((2*rank)+1)) != rankNodeMap.end()){
+		sum += itHelperToRankNodeMap->second;
+	}
+	if((itHelperToRankNodeMap = rankNodeMap.find((2*rank)+2)) != rankNodeMap.end()){
+		sum += itHelperToRankNodeMap->second;
+	}
+	ptr->value = sum;
+	rankNodeMap[rank] = 2 * ptr->value;
+}
+
+void ConvertATreeToSumTreeLevelOrder(tNode *ptr){
+	if(ptr == NULL){
+		return;
+	}
+
+	hash_map<int,int> rankNodeMap;
+	queue<rankHelper *> auxSpace;
+
+	rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+	newNode->ptrToNode = ptr;
+	newNode->rank = 0;
+	rankNodeMap.insert(pair<int,int>(0,ptr->value));
+	rankHelper *currentNode;
+	int currentNodeRank;
+	while(!auxSpace.empty()){
+		currentNode = auxSpace.front();
+		currentNodeRank = currentNode->rank;
+		if(currentNode->ptrToNode->left != NULL){
+			rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+			newNode->ptrToNode = currentNode->ptrToNode->left;
+			newNode->rank = (2*currentNodeRank)+1;
+			rankNodeMap.insert(pair<int,int>((2*currentNodeRank)+1,newNode->ptrToNode->value));
+		}
+
+		if(currentNode->ptrToNode->right != NULL){
+			rankHelper *newNode = (rankHelper *)malloc(sizeof(rankHelper));
+			newNode->ptrToNode = currentNode->ptrToNode->right;
+			newNode->rank = (2*currentNodeRank)+2;
+			rankNodeMap.insert(pair<int,int>((2*currentNodeRank)+2,newNode->ptrToNode->value));
+		}
+	}
+
+
+}
+
+
 #endif /* CONVERTTREETOBINARYSUMTREE_H_ */

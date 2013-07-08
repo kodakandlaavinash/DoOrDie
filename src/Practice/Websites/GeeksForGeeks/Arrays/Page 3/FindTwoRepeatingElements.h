@@ -141,7 +141,7 @@ int *FindTwoRepeatingElementsUsingXOR(int userInput[],int sizeOfArray){
 		XORResult ^= userInput[crawler];
 	}
 
-	int setBitXOR;
+
 
 
 

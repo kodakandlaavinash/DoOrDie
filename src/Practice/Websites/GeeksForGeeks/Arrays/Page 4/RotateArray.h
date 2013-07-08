@@ -80,15 +80,31 @@ void RotateArrayShiftDriver(int userInput[],int sizeOfArray,int rotateBy){
 }
 
 void RotateArrayReversalStrategy(int userInput[],int sizeOfArray,int rotateBy){
-
+	if(userInput == NULL || sizeOfArray == 0){
+		return;
+	}
+	ReverseArrayRecursive2(userInput,0,rotateBy-1);
+	ReverseArrayRecursive2(userInput,rotateBy,sizeOfArray-1);
+	ReverseArrayRecursive2(userInput,0,sizeOfArray-1);
 }
 
 void RotateArrayJugglingStrategy(int userInput[],int sizeOfArray,int rotateBy){
+	if(userInput == NULL){
+		return;
+	}
+	int gcdOfNumbers = FindHCFOfTwoNumbers(sizeOfArray,rotateBy);
 
 }
 
+void RotateArrayBlockStrategyRecursive(int userInput[],int startIndex,int endIndex,int rotateBy){
 
-void RotateArrayBlockStrategy(int userInput[],int sizeOfArray,int rotateBy){
+}
+
+void RotateArrayBlockStrategyDriver(int userInput[],int sizeOfArray,int rotateBy){
+
+}
+
+void RotateArrayBlockStrategyIterative(){
 
 }
 #endif /* ROTATEARRAY_H_ */

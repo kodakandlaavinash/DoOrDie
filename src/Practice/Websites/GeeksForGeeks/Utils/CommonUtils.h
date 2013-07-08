@@ -89,4 +89,9 @@ void SwapTwoElementsXORMethod(int firstNumber,int secondNumber){
 	firstNumber = firstNumber ^ secondNumber;
 }
 
+int GenerateRandomNumberBetweenLimits(int startNumber,int endNumber){
+	return rand() % endNumber + startNumber;
+
+}
+
 #endif /* COMMONUTILS_H_ */

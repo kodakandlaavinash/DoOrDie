@@ -84,4 +84,25 @@ int FindNumberOfDecimalDigits(decimal userInput){
 	for(;10*fraction > 0;counter++,fraction = fractionPart*10 - (int)(fractionPart*10));
 	return counter;
 }
+
+int FindNumberOfDigitsInNumbers(int number){
+	int countNumberOfDigits;
+	while(number){
+		countNumberOfDigits+=1;
+		number /= 10;
+	}
+	return countNumberOfDigits;
+}
+
+int FindNumberOfDigitsInNumberRecursion(int number){
+	if(number == 0){
+		return 0;
+	}
+	return 1+FindNumberOfDigitsInNumberRecursion(number/10);
+}
+
+bool CheckWhetherTwoNumbersAreCoPrimesOrNot(){
+	//hash_map<int,int>
+}
+
 #endif /* MISC_H_ */

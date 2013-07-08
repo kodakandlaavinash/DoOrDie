@@ -45,6 +45,14 @@ int FindLCMOfTwoNumbers(int firstNumber,int secondNumber){
 	return (firstNumber*secondNumber)/FindHCFOfTwoNumbers(firstNumber,secondNumber);
 }
 
+int FindLCMOfNNumbers(vector<int> userInput){
+	int lcmOfNumber = FindLCMOfTwoNumbers(userInput[0],userInput[1]);
+	for(int counter = 2;counter < userInput.size();counter++){
+		lcmOfNumber = FindLCMOfTwoNumbers(lcmOfNumber,userInput[counter]);
+	}
+	return lcmOfNumber;
+}
+
 int FindLCMOfTwoNumbersUsingFactorization(int firstNumber,int secondNumber){
 
 }

@@ -89,4 +89,15 @@ void ReverseArrayAuxSpace(int userInput[],int sizeOfArray){
 		auxSpace.pop();
 	}
 }
+
+void ReverseArrayRecursive2(int userInput[],int frontCrawler,int endCrawler){
+	if(frontCrawler > endCrawler){
+		return;
+	}
+	int tempForSwap;
+	tempForSwap = userInput[frontCrawler];
+	userInput[frontCrawler] = userInput[endCrawler];
+	userInput[endCrawler] = tempForSwap;
+	ReverseArrayRecursive2(userInput,frontCrawler+1,endCrawler-1);
+}
 #endif /* REVERSEARRAY_H_ */

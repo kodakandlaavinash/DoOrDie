@@ -69,6 +69,29 @@ bool CheckWhetherANumberIsDivisibleBy6OrNot(int userInput){
 	return CheckWhetherANumberIsDivisibleBy2OrNot(userInput) && CheckWhetherANumberIsDivisibleBy3OrNot(userInput);
 }
 
+bool CheckWhetherANumberIsDivisibleBy7OrNot(int userInput){
+	int twoDigitsDivisbleBy7[] = {7,14,21,28,35,42,49,56,63,70,77,84,91,98};
+	int numberOfDigits = FindNumberOfDigitsInNumberRecursion(userInput);
+	int lastDigit;
+	while(numberOfDigits > 2){
+		lastDigit = userInput % 10;
+		userInput /= 10;
+		userInput -= lastDigit;
+		numberOfDigits -= 1;
+	}
+
+	bool isFound = false;
+	for(int counter = 0;counter < sizeof(twoDigitsDivisbleBy7)/sizeof(twoDigitsDivisbleBy7[0]);counter++){
+		if(userInput == twoDigitsDivisbleBy7[counter]){
+			isFound = true;
+			break;
+		}
+	}
+
+	return isFound;
+}
+
+
 bool CheckWhetherANumberIsDivisibleBy8OrNot(int userInput){
 	int lastThreeDigit = userInput % 1000;
 	return userInput%8 == 0?true:false;
@@ -101,9 +124,27 @@ bool CheckWhetherANumberIsDivisibleBy11OrNot(int userInput){
 		userInput /= 10;
 		flag = !flag;
 	}
-
 	return abs(sumOfEvenDigits - sumOfOddDigits) == 0?true:(abs(sumOfEvenDigits - sumOfOddDigits)%11 == 0?true:false);
 }
 
+bool CheckWhetherANumberIsDivisivleBy19OrNot(int userInput){
+	int twoDigitsDivisbleBy19[] = {19,38,57,76,95};
+	int numberOfDigits = FindNumberOfDigitsInNumberRecursion(userInput);
+	int lastDigit;
+	while(numberOfDigits > 2){
+		lastDigit = userInput % 10;
+		userInput /= 10;
+		userInput += lastDigit;
+		numberOfDigits -= 1;
+	}
+	bool isFound = false;
+	for(int counter = 0;counter < sizeof(twoDigitsDivisbleBy19)/sizeof(twoDigitsDivisbleBy19[0]);counter++){
+		if(userInput == twoDigitsDivisbleBy19[counter]){
+			isFound = true;
+			break;
+		}
+	}
+	return isFound;
+}
 
 #endif /* DIVISIBILITYRULES_H_ */

@@ -67,4 +67,41 @@ hash_map<int,int> FactoriseANumber(int number){
 	}
 }
 
+hash_map<int,int> FindFactorsOfGivenNumberNaiveMethod(int number){
+	hash_map<int,int> factorsOfGivenNumbers;
+	hash_map<int,int>::iterator *itToFactorsOfGivenNumber;
+	int squareRootOfNumber;
+	int recentFactor = 1;
+	bool isFound;
+	do{
+		squareRootOfNumber = sqrt(number);
+		isFound = false;
+		for(int counter = 2;counter < squareRootOfNumber;counter++){
+			if(isAPrimeNumber(counter)){
+				if(number %counter == 0){
+					if((*itToFactorsOfGivenNumber = factorsOfGivenNumbers.find(counter)) != factorsOfGivenNumbers.end()){
+						factorsOfGivenNumbers[counter] += 1;
+					}else{
+						factorsOfGivenNumbers.insert(pair<int,int>(counter,1));
+					}
+					isFound = true;
+					recentFactor = counter;
+					break;
+				}
+			}
+		}
+		if(!isFound){
+			if((*itToFactorsOfGivenNumber = factorsOfGivenNumbers.find(number)) != factorsOfGivenNumbers.end()){
+				factorsOfGivenNumbers[number] += 1;
+			}else{
+				factorsOfGivenNumbers.insert(pair<int,int>(number,1));
+			}
+			return factorsOfGivenNumbers;
+		}
+		number /= recentFactor;
+	}while(number > 1);
+
+	return factorsOfGivenNumbers;
+}
+
 #endif /* FACTORIZEANUMBER_H_ */

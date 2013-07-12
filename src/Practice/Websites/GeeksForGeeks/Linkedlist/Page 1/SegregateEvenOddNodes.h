@@ -114,7 +114,7 @@ void SegregateEvenOddNodesByAppending(linkedListNode *ptr){
 		crawler = crawler->next;
 	}
 	tailOfLinkedList = crawler;
-	linkedListNode *tailCrawler;
+	linkedListNode *tailCrawler = tailOfLinkedList;
 
 	crawler = ptr;
 

@@ -62,9 +62,49 @@ bool DetectLoopInLinkedList(linkedListNode *ptr){
 }
 
 bool DetectLoopInLinkedListRecursion(linkedListNode *ptr,linkedListNode **tail){
-
+	if(ptr == NULL){
+		return false;
+	}
+	if(ptr->next == NULL){
+		*tail = ptr;
+		return false;
+	}
+	bool truthValue = DetectLoopInLinkedList(ptr->next,tail);
+	if(truthValue){
+		return true;
+	}else{
+		if((*tail)->next == ptr){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
-//int main(){
-//	return -1;
-//}
 
+bool DetectLoopInLinkedList(linkedListNode *ptr){
+	if(ptr == NULL){
+		return false;
+	}
+	hash_map<int,list<linkedListNode *>> mapOfElementsAndPtr;
+	hash_map<int,list<linkedListNode *>>::iterator *itToMapOfElementsAndPtr;
+	linkedListNode *crawler = ptr;
+	list<linkedListNode *> tempList;
+	list<linkedListNode *>::iterator *itToTempList;
+	while(crawler != NULL){
+		if((itToMapOfElementsAndPtr = mapOfElementsAndPtr.find(crawler->value)) == mapOfElementsAndPtr.end()){
+			list<linkedListNode *> newListForElement;
+			newListForElement.push_back(crawler);
+			mapOfElementsAndPtr.insert(pair<int,list<linkedListNode *>>(crawler->value,newListForElement));
+		}else{
+			tempList = (*itToMapOfElementsAndPtr)->second;
+			for(itToTempList = tempList.begin();itToTempList != tempList.end();itToTempList++){
+				if(*itToTempList == crawler){
+					return true;
+				}
+			}
+			tempList.push_back(crawler);
+			mapOfElementsAndPtr[crawler->value] = tempList;
+		}
+	}
+	return false;
+}

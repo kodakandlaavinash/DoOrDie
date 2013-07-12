@@ -222,16 +222,6 @@ void InsertANodeAtPosition(linkedListNode **ptr,int value,int position){
 	}
 }
 
-void DeleteEntireLinkedList(linkedListNode *ptr){
-	linkedListNode *nodeToBeDeleted;
-	while(ptr != NULL){
-		nodeToBeDeleted = ptr;
-		ptr = ptr->next;
-		free(nodeToBeDeleted);
-	}
-}
-
-
 void DeletePartOfLinkedList(linkedListNode *startPtr,linkedListNode *endPtr){
 	linkedListNode *nodeToBeDeleted;
 	while(startPtr != endPtr->next){

@@ -1,7 +1,7 @@
 /*
- * DetectACycleInDirectedGraph.h
+ * SumOfNumbers.h
  *
- *  Created on: Jun 27, 2013
+ *  Created on: Jul 12, 2013
  *      Author: Avinash
  */
 //
@@ -38,19 +38,18 @@ using namespace __gnu_cxx;
 //	return -1;
 //}
 
-#ifndef DETECTACYCLEINDIRECTEDGRAPH_H_
-#define DETECTACYCLEINDIRECTEDGRAPH_H_
-struct adjacencyListDS{
-	int adjacentVertex;
-	int edgeName;
-};
+#ifndef SUMOFNUMBERS_H_
+#define SUMOFNUMBERS_H_
 
-bool DetectACycleInDirectedGraph(vector<vector<adjacencyListDS>> adjacencyList){
-	if(adjacencyList.size() == 0){
-		return true;
+int SumOfNumbersON(int totalNumbers){
+	for(int counter = 1,sum = 0;counter <= totalNumbers;counter++){
+		sum += counter;
 	}
-
-
+	return sum;
 }
 
-#endif /* DETECTACYCLEINDIRECTEDGRAPH_H_ */
+int SumOfNumberO1(int totalNumbers){
+	return ((totalNumbers)(totalNumbers+1)/2);
+}
+
+#endif /* SUMOFNUMBERS_H_ */

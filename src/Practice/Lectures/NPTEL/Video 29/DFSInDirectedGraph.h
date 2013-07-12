@@ -41,6 +41,25 @@ using namespace __gnu_cxx;
 #ifndef DFSINDIRECTEDGRAPH_H_
 #define DFSINDIRECTEDGRAPH_H_
 
+struct adjacencyListDS{
+	int adjacentVertex;
+	int edgeName;
+};
 
+void PerformADFSInDirectedGraph(vector<vector<adjacencyListDS>> adjacencyList,int source,vector<int> &arrivalTimes,vector<int> &departureTimes){
+	if(adjacencyList.size() == 0){
+		return;
+	}
+	static int timeCounter = -1;
+	vector<adjacencyListDS> neighbouringVertices;
+
+	for(int counter =0;counter < adjacencyList.size();counter++){
+		if(arrivalTimes[adjacencyList[source][counter]] == -1){
+			arrivalTimes[adjacencyList[source][counter]] = ++timeCounter;
+			PerformADFSInDirectedGraph(adjacencyList,adjacencyList[source][counter],arrivalTimes,departureTimes);
+		}
+	}
+	departureTimes[source] = ++timeCounter;
+}
 
 #endif /* DFSINDIRECTEDGRAPH_H_ */

@@ -41,5 +41,54 @@ using namespace __gnu_cxx;
 #ifndef ISDIRECTEDSTRONGLYCONNECTEDORNOT_H_
 #define ISDIRECTEDSTRONGLYCONNECTEDORNOT_H_
 
+struct adjacencyListDS{
+	int adjacentVertex;
+	int edgeName;
+};
+
+bool IsGivenDirectedGraphStronglyConnected(vector<vector<adjacencyListDS>> adjacencyList){
+	if(adjacencyList.size()){
+		return true;
+	}
+	vector<int> arrivalTimes;
+	vector<int> departureTimes;
+	for(int counter = 0;counter < adjacencyList.size();counter++){
+		arrivalTimes.clear();
+		departureTimes.clear();
+		PerformADFSInDirectedGraph(adjacencyList,counter,arrivalTimes,departureTimes);
+		for(int arrivalTimeCounter = 0;arrivalTimeCounter < arrivalTimes.size();arrivalTimeCounter++){
+			if(arrivalTimes[arrivalTimeCounter] == -1){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+bool IsGivenDirectedGraphStronglyConnected(vector<vector<adjacencyListDS>> adjacencyList){
+	if(adjacencyList.size()){
+		return true;
+	}
+	vector<int> arrivalTimes;
+	vector<int> departureTimes;
+	PerformADFSInDirectedGraph(adjacencyList,0,arrivalTimes,departureTimes);
+	for(int arrivalTimeCounter = 0;arrivalTimeCounter = arrivalTimes.size();arrivalTimeCounter++){
+		if(arrivalTimes[arrivalTimeCounter] == -1){
+			return false;
+		}
+	}
+
+	vector<vector<adjacencyListDS>> reverseAdjacencyList;
+	arrivalTimes.clear();
+	departureTimes.clear();
+	PerformADFSInDirectedGraph(reverseAdjacencyList,0,arrivalTimes,departureTimes);
+	for(int arrivalTimeCounter = 0;arrivalTimeCounter = arrivalTimes.size();arrivalTimeCounter++){
+		if(arrivalTimes[arrivalTimeCounter] == -1){
+			return false;
+		}
+	}
+
+	return true;
+}
 
 #endif /* ISDIRECTEDSTRONGLYCONNECTEDORNOT_H_ */

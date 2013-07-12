@@ -1,7 +1,7 @@
 /*
- * DetectACycleInDirectedGraph.h
+ * RemainderWhenSomePowerIsDivided.h
  *
- *  Created on: Jun 27, 2013
+ *  Created on: Jul 9, 2013
  *      Author: Avinash
  */
 //
@@ -38,19 +38,8 @@ using namespace __gnu_cxx;
 //	return -1;
 //}
 
-#ifndef DETECTACYCLEINDIRECTEDGRAPH_H_
-#define DETECTACYCLEINDIRECTEDGRAPH_H_
-struct adjacencyListDS{
-	int adjacentVertex;
-	int edgeName;
-};
-
-bool DetectACycleInDirectedGraph(vector<vector<adjacencyListDS>> adjacencyList){
-	if(adjacencyList.size() == 0){
-		return true;
-	}
+#ifndef REMAINDERWHENSOMEPOWERISDIVIDED_H_
+#define REMAINDERWHENSOMEPOWERISDIVIDED_H_
 
 
-}
-
-#endif /* DETECTACYCLEINDIRECTEDGRAPH_H_ */
+#endif /* REMAINDERWHENSOMEPOWERISDIVIDED_H_ */

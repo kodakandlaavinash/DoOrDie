@@ -105,7 +105,7 @@ linkedListNode *AddTwoNumbersRepresentedAsLinkedListIterative(linkedListNode *pt
 	return sumOfLists;
 }
 
-linkedListNode *AddTwoListsRecursion(linkedListNode *ptr1,linkedListNode *ptr2,int carry,linkedListNode *sumOfLists){
+void AddTwoListsRecursion(linkedListNode *ptr1,linkedListNode *ptr2,int carry,linkedListNode *sumOfLists){
 	if(ptr1 == NULL && ptr1 == NULL && carry == 0){
 		return;
 	}
@@ -114,15 +114,29 @@ linkedListNode *AddTwoListsRecursion(linkedListNode *ptr1,linkedListNode *ptr2,i
 			while(ptr1 == NULL){
 				int sum = ptr1->value + carry;
 				sumOfLists->next = (linkedListNode *)malloc(sizeof(linkedListNode));
-
+				sumOfLists->next->value = sum%10;
+				sumOfLists->next->next = NULL;
+				carry = sum/10;
+				ptr1 = ptr1->next;
 			}
 		}else{
-
+			while(ptr2 == NULL){
+				int sum = ptr2->value + carry;
+				sumOfLists->next = (linkedListNode *)malloc(sizeof(linkedListNode));
+				sumOfLists->next->value = sum%10;
+				sumOfLists->next->next = NULL;
+				carry = sum/10;
+				ptr2 = ptr2->next;
+			}
 		}
 		if(carry){
-
+			while(carry){
+				sumOfLists->next = (linkedListNode *)malloc(sizeof(linkedListNode));
+				sumOfLists->next->value = carry%10;
+				carry /= 10;
+			}
 		}
-		return sumOfLists;
+		return;
 	}
 
 	int sum;
@@ -141,8 +155,6 @@ linkedListNode *AddTwoListsRecursion(linkedListNode *ptr1,linkedListNode *ptr2,i
 	}
 	carry = sum/10;
 	AddTwoListsRecursion(ptr1->next,ptr2->next,carry,returnPtr);
-	return returnPtr;
-
 }
 
 #endif /* ADDTWONUMBERSREPRESENTATEDBYLINKEDLIST_H_ */

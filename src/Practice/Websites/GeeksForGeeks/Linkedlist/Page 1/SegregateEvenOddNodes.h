@@ -105,7 +105,7 @@ void SegregateEvenOddNodesUsingSeparateLists(linkedListNode **ptr){
 	}
 }
 
-void SegregateEvenOddNodesByAppending(linkedListNode *ptr){
+linkedListNode *SegregateEvenOddNodesByAppending(linkedListNode *ptr){
 	if(ptr == NULL){
 		return NULL;
 	}
@@ -115,10 +115,54 @@ void SegregateEvenOddNodesByAppending(linkedListNode *ptr){
 	}
 	tailOfLinkedList = crawler;
 	linkedListNode *tailCrawler = tailOfLinkedList;
-
 	crawler = ptr;
+	linkedListNode *temp;
+	linkedListNode *oddNodes,*evenNodes;
+	linkedListNode *result[2];
+	if(crawler->next == NULL){
+		if(crawler->value % 2 == 0){
+			evenNodes = crawler;
+			oddNodes = null;
+			result[0] = evenNodes;
+			result[1] = oddNodes;
+			return result;
+		}
+	}
+	while(crawler->next != tailOfLinkedList){
+		if(crawler->value % 2 == 1){
+			tailCrawler->next = (linkedListNode *)malloc(sizeof(linkedListNode));
+			tailCrawler->next->value = crawler->value;
+			tailCrawler->next->next = NULL;
+			tailCrawler = tailCrawler->next;
+			crawler->value = crawler->next->value;
+			temp = crawler->next;
+			crawler->next = crawler->next->next;
+			free(temp);
+		}else{
+			crawler = crawler->next;
+		}
+	}
 
-// Not Completed
+	if(crawler->next->value %2 == 1){
+		tailCrawler->next = (linkedListNode *)malloc(sizeof(linkedListNode));
+		tailCrawler->next->value = crawler->value;
+		tailCrawler->next->next = NULL;
+		if(ptr->next == tailOfLinkedList->next){
+			evenNodes = null;
+		}else{
+			evenNodes = ptr;
+		}
+		oddNodes = tailOfLinkedList->next;
+		temp = crawler->next->next;
+		crawler->next = NULL;
+		free(temp);
+	}
+	result[0] = evenNodes;
+	result[1] = oddNodes;
+	return result;
+}
+
+linkedListNode *SegregateEvenOddNodesByAppendingRecursion(linkedListNode *ptr){
 
 }
 

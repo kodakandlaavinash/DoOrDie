@@ -41,5 +41,32 @@ using namespace __gnu_cxx;
 #ifndef DELETEMNODESAFTERNNODES_H_
 #define DELETEMNODESAFTERNNODES_H_
 
+void DeleteMNodesAfterNNodes(linkedListNode *ptr,int M,int N){
+	if(ptr == NULL){
+		return;
+	}
+	int crawlerIncrement = M,deleteIncrement = N;
+	linkedListNode *crawler = ptr;
+	linkedListNode *linkedListToBeDeleted;
+	linkedListNode *nextCrawler;
+	while(crawler != NULL && crawlerIncrement > 0){
+		crawler=crawler->next;
+		crawlerIncrement--;
+	}
+	deleteIncrement = N;
+	nextCrawler = crawler->next;
+	if(nextCrawler == NULL){
+		return;
+	}
+	while(nextCrawler != NULL && deleteIncrement > 0){
+		nextCrawler = nextCrawler->next;
+		deleteIncrement--;
+	}
+	if(nextCrawler == NULL){
+		linkedListToBeDeleted = crawler->next;
+		crawler->next = NULL;
+
+	}
+}
 
 #endif /* DELETEMNODESAFTERNNODES_H_ */

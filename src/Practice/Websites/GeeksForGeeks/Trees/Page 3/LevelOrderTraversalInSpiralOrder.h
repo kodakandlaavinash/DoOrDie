@@ -87,4 +87,28 @@ void PrintTreeInSpiralOrder(tNode *ptr){
 	}
 }
 
+void LevelOrderTraversalInSpiralOrder(tNode *ptr){
+	if(ptr == NULL){
+		return;
+	}
+	hashmapForTreeDS *hashmapTreeDS = GetHashMapForTreeDS(ptr);
+	int maxLevel = GetMaxLevelFromHashMapForATree(hashmapTreeDS->rankNodeMap);
+	bool shouldPrintReverse;
+	hash_map<int,tNode *>::iterator *itToRankNodeMap;
+	for(int levelCounter = 0;levelCounter <= maxLevel;levelCounter){
+		if(shouldPrintReverse){
+			for(int printerCounter = pow(2,levelCounter)- 2 + pow(2,levelCounter);printerCounter>=pow(2,levelCounter)-1;printerCounter--){
+				if((itToRankNodeMap = hashmapTreeDS->rankNodeMap.find(printerCounter)) != hashmapTreeDS->rankNodeMap.end()){
+					printf("%d",(*itToRankNodeMap)->second);
+				}
+			}
+		}else{
+			for(int printerCounter = pow(2,levelCounter)-1;printerCounter > pow(2,levelCounter)- 1 + pow(2,levelCounter);printerCounter++){
+				printf("%d",(*itToRankNodeMap)->second);
+			}
+		}
+		shouldPrintReverse = !shouldPrintReverse;
+	}
+}
+
 #endif /* LEVELORDERTRAVERSALINSPIRALORDER_H_ */

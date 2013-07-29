@@ -97,7 +97,6 @@ void PrintNodesAtKDistanceFromRootLevelOrder(tNode *ptr,int requiredLevel){
 			}
 
 		}
-
 		if(currentNode->left != NULL){
 			levelOrderAuxSpace.push(currentNode->left);
 		}
@@ -106,6 +105,19 @@ void PrintNodesAtKDistanceFromRootLevelOrder(tNode *ptr,int requiredLevel){
 		}
 	}
 	return;
+}
+
+void PrintNodesAtKDistanceFromRoot(tNode *ptr,int K){
+	if(ptr == NULL){
+		return;
+	}
+	hashmapForTreeDS *hashMapDSForTree = GetHashMapForTreeDS(ptr);
+	hash_map<int,tNode *>::iterator *itToRankNodeMap;
+	for(int counter = pow(2,k)-1;counter < (pow(2,k)-1) + pow(2,k);counter++){
+		if((itToRankNodeMap = hashMapDSForTree->rankNodeMap.find(counter)) != hashMapDSForTree->rankNodeMap.end()){
+			printf("%d\t",(*itToRankNodeMap)->second);
+		}
+	}
 }
 
 #endif /* PRINTNODESATKDISTANCEFROMROOT_H_ */

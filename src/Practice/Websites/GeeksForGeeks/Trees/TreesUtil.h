@@ -361,6 +361,42 @@ levelOrderDS *LevelOrderOfTree(tNode *ptr){
 
 }
 
+hashmapForTreeDS *GetHashMapForTreeDS(tNode *ptr){
+	if(ptr == NULL){
+		return NULL;
+	}
+	hash_map<int,tNode *> rankNodeMap;
+	hash_map<int,tNode *>::iterator *itToRankNodeMap;
+	hash_map<unsigned int,int> nodeRankMap;
+	hash_map<unsigned int,int>::iterator *itToNodeRankMap;
+	queue<tNode *> levelOrderAuxSpace;
+	tNode *currentNode;
+	int currentNodeRank;
+	levelOrderAuxSpace.push(ptr);
+	rankNodeMap.insert(pair<int,tNode *>(0,ptr));
+	nodeRankMap.insert(pair<unsigned int,int>((unsigned int)ptr,0));
+	while(!levelOrderAuxSpace.empty()){
+		currentNode = levelOrderAuxSpace.front();
+		levelOrderAuxSpace.pop();
+		itToNodeRankMap = nodeRankMap.find((unsigned int)currentNode);
+		currentNodeRank = (*itToNodeRankMap)->second;
+		if(currentNode->left != NULL){
+			levelOrderAuxSpace.push(currentNode->left);
+			rankNodeMap.insert(pair<int,tNode *>((2*currentNodeRank)+1,currentNode->left));
+			nodeRankMap.insert(pair<unsigned int,int>((unsigned int)currentNode->left,(2*currentNodeRank)+1));
+		}
+		if(currentNode->right != NULL){
+			levelOrderAuxSpace.push(currentNode->right);
+			rankNodeMap.insert(pair<int,tNode *>((2*currentNodeRank)+2,currentNode->right));
+			nodeRankMap.insert(pair<unsigned int,int>((unsigned int)currentNode->right,(2*currentNodeRank)+2));
+		}
+	}
+	hashmapForTreeDS *treeDS = (hashmapForTreeDS *)malloc(sizeof(hashmapForTreeDS));
+	treeDS->nodeRankMap = nodeRankMap;
+	treeDS->rankNodeMap = rankNodeMap;
+	return treeDS;
+}
+
 bool AreTwoTreesMirrorImagesToEachOther(tNode *ptr1,tNode *ptr2){
 	if(ptr1 == NULL && ptr2 == NULL){
 		return true;

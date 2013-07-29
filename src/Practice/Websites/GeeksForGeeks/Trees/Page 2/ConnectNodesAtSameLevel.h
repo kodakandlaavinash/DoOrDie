@@ -181,4 +181,21 @@ void ConnectNodesInLevelIteratively(nextRightTNode *ptr){
 	}
 }
 
+void ConnectNodesAtSameLevel(nextRightTNode *ptr){
+	if(ptr == NULL){
+		return;
+	}
+	hash_map<int,nextRightTNode *> rankNodeMap;
+	hash_map<unsigned int,int> nodeRankMap;
+	hash_map<int,nextRightTNode *>::iterator *itToRankNodeMap;
+	hash_map<unsigned int,int>::iterator *itToRankNodeMap;
+	queue<nextRightTNode *> levelOrderAuxSpace;
+	levelOrderAuxSpace.push(ptr);
+	rankNodeMap.insert(pair<int,nextRightTNode *>(0,ptr));
+	nodeRankMap.insert(pair<unsigned int,int>((unsigned int)(ptr),0));
+	while(!levelOrderAuxSpace.empty()){
+
+	}
+}
+
 #endif /* CONNECTNODESATSAMELEVEL_H_ */

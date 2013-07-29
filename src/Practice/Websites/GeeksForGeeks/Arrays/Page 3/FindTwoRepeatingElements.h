@@ -141,10 +141,52 @@ int *FindTwoRepeatingElementsUsingXOR(int userInput[],int sizeOfArray){
 		XORResult ^= userInput[crawler];
 	}
 
+	int setBitPosition = 0;
+	bitset<16> temp(XORResult);
+	for(int bitCounter = 0;bitCounter < 16;bitCounter++){
+		if(temp[bitCounter] == true){
+			bitPosition = bitCounter;
+			break;
+		}
+	}
 
+	vector<bitset<16>> bitRepresentationOfUserInput;
+	for(int counter =0;counter < sizeOfArray;counter++){
+		bitset<16> temp(userInput[counter]);
+		bitRepresentationOfUserInput.push_back(temp);
+	}
 
+	int frontCrawler = 0,backCrawler = sizeOfArray - 1;
+	while(1){
+		while(bitRepresentationOfUserInput[frontCrawler][setBitPosition] == true){
+			frontCrawler++;
+		}
 
+		if(frontCrawler < backCrawler){
+			while(bitRepresentationOfUserInput[backCrawler][setBitPosition] == false){
+				backCrawler--;
+			}
+		}
 
+		if(frontCrawler<backCrawler){
+			temp = bitRepresentationOfUserInput[frontCrawler];
+			bitRepresentationOfUserInput[frontCrawler] = bitRepresentationOfUserInput[backCrawler];
+			bitRepresentationOfUserInput[backCrawler] = temp;
+		}
+	}
+
+	int twoRepeatingElements[2];
+	XORResult =0;
+	for(int counter =0;counter <= backCrawler;counter++){
+		XORResult ^= (int)bitRepresentationOfUserInput[counter].to_ulong();
+	}
+	twoRepeatingElements[0] = XORResult;
+	XORResult =0;
+	for(int counter =backCrawler+1;counter < sizeOfArray;counter++){
+		XORResult ^= (int)bitRepresentationOfUserInput[counter].to_ulong();
+	}
+	twoRepeatingElements[1] = XORResult;
+	return twoRepeatingElements;
 }
 
 #endif /* FINDTWOREPEATINGELEMENTS_H_ */

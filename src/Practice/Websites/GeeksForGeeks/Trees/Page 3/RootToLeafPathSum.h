@@ -57,4 +57,30 @@ bool hasPathSumRootToLeaf(tNode *ptr,int sumTillNow,int key){
 	return hasPathSumRootToLeaf(ptr->left,sumTillNow+ptr->value,key) || hasPathSumRootToLeaf(ptr->right,sumTillNow+ptr->value,key);
 }
 
+bool hasPathSumRootToLeafIterative(tNode *ptr,int key){
+	if(ptr == NULL){
+		return false;
+	}
+	hashmapForTreeDS *hashmapOfATree = GetHashMapForTreeDS(ptr);
+	hash_map<int,tNode *>::iterator *itToHashMapOfTree;
+	hash_map<int,tNode *>::iterator *itToLeftOfCurrentNode;
+	hash_map<int,tNode *>::iterator *itToRightOfCurrentNode;
+	hash_map<int,tNode *>::iterator *itToTempNode;
+	int currentNodeRank,sum =0;
+	for(itToHashMapOfTree = hashmapOfATree->nodeRankMap.begin();itToHashMapOfTree != hashmapOfATree->nodeRankMap.end();++itToHashMapOfTree){
+		currentNodeRank = (*itToHashMapOfTree)->first;
+		if((itToLeftOfCurrentNode = hashmapOfATree->nodeRankMap.find(2*currentNodeRank + 1) == NULL) && (itToRightOfCurrentNode = hashmapOfATree->nodeRankMap.find(2*currentNodeRank + 2) == NULL)){
+			sum = 0;
+			while(currentNodeRank >= 0){
+				itToTempNode = hashmapOfATree->nodeRankMap.find(currentNodeRank);
+				sum += (*itToTempNode)->second;
+				currentNodeRank  /= 2;
+			}
+			if(sum == key){
+				return true;
+			}
+		}
+	}
+	return false;
+}
 #endif /* ROOTTOLEAFPATHSUM_H_ */

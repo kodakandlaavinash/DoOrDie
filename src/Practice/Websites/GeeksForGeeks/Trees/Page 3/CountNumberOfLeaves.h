@@ -56,7 +56,102 @@ int CountNumberOfLeaves(tNode *ptr){
 }
 
 int CountNumberOfLeavesLevelOrder(tNode *ptr){
-	return 0;
+	if(ptr == NULL){
+		return 0;
+	}
+	hashmapForTreeDS *levelOrderAuxSpace = GetHashMapForTreeDS(ptr);
+	hash_map<int,tNode *>::iterator *itToRankNodeMap;
+	hash_map<int,tNode *>::iterator *itToLeftNode;
+	hash_map<int,tNode *>::iterator *itToRightNode;
+	int currentNodeRank;
+	int leafCounter;
+	for(itToRankNodeMap = levelOrderAuxSpace->rankNodeMap.begin();itToRankNodeMap != levelOrderAuxSpace->rankNodeMap.end();itToRankNodeMap++){
+		currentNodeRank = (*itToRankNodeMap)->first;
+		if(((itToLeftNode = levelOrderAuxSpace->rankNodeMap.find((2*currentNodeRank)+1)) == levelOrderAuxSpace->rankNodeMap.end()) && ((itToLeftNode = levelOrderAuxSpace->rankNodeMap.find((2*currentNodeRank)+2)) == levelOrderAuxSpace->rankNodeMap.end())){
+			leafCounter += 1;
+		}
+	}
+	return leafCounter;
 }
 
+int CountNumbeOfLeavesPreOrderTravesalOneStack(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	stack<tNode *> auxSpace;
+	auxSpace.push(ptr);
+	tNode *currentNode;
+	int totalNumberOfLeaves = 0;
+	while(!auxSpace.empty()){
+		currentNode = auxSpace.top();
+		auxSpace.pop();
+		if(currentNode->left == NULL && currentNode->right == NULL){
+			totalNumberOfLeaves++;
+		}else{
+			if(currentNode->left != NULL){
+				auxSpace.push(currentNode->left);
+			}else{
+				auxSpace.push(currentNode->right);
+			}
+		}
+	}
+	return totalNumberOfLeaves;
+}
+
+int NumberOfLeavesPostOrderTwoStacks(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	stack<tNode *> firstStack,secondStack;
+	tNode *currentNode;
+	int countNumberLeaves = 0;
+	while(!firstStack.empty()){
+		currentNode = firstStack.top();
+		firstStack.pop();
+		if(currentNode->left == NULL && currentNode->right == NULL){
+			currentNode++;
+		}else{
+			if(currentNode->left != NULL){
+				firstStack.push(currentNode->left);
+			}
+			if(currentNode->right != NULL){
+				firstStack.push(currentNode->right);
+			}
+		}
+	}
+	return countNumberLeaves;
+}
+
+int NumberOfLeavesPostOrderOneStack(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+}
+
+int NumberOfLeavesInOrderStack(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	stack<tNode *> auxSpace;
+	tNode *temp = ptr;
+	int numberOfLeaves = 0;
+	while(1){
+		if(ptr != NULL){
+			auxSpace.push(ptr);
+			ptr = ptr->left;
+		}else{
+			ptr = auxSpace.top();
+			auxSpace.pop();
+			if(ptr->right != NULL){
+				auxSpace.push(ptr->right);
+				ptr = ptr->right;
+			}else{
+				if(ptr->left == NULL && ptr->right == NULL){
+					numberOfLeaves++;
+				}
+			}
+		}
+	}
+	return numberOfLeaves;
+}
 #endif /* COUNTNUMBEROFLEAVES_H_ */

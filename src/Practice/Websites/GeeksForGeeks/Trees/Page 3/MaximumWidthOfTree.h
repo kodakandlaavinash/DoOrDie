@@ -114,4 +114,45 @@ int GetMaxWidthHashMapDriver(tNode *ptr){
 
 	return maxWidth;
 }
+
+int GetMaxLevelFromHashMapForATree(hash_map<int,tNode *> rankNodeMap){
+	if(rankNodeMap.size() == 0){
+		return INT_MIN;
+	}
+
+	hash_map<int,tNode *>::iterator *itToRankNodeMap;
+	int maxRank = INT_MIN;
+	for(itToRankNodeMap = rankNodeMap.begin();itToRankNodeMap != rankNodeMap.end();itToRankNodeMap++){
+		if(maxRank < (*itToRankNodeMap)->first){
+			maxRank = (*itToRankNodeMap)->first;
+		}
+	}
+
+	/*
+	 * Get Max power
+	 */
+}
+
+int GetMaxWidthUsingLevelOrderHashMap(tNode *ptr){
+	if(ptr == NULL){
+		return INT_MIN;
+	}
+	hashmapForTreeDS *ptrToHashMapOfNodesOfTree = GetHashMapForTreeDS(ptr);
+	hash_map<int,tNode *>::iterator *itToRankNodeMap;
+	int maxLevel = GetMaxLevelFromHashMapForATree(ptrToHashMapOfNodesOfTree->rankNodeMap);
+	int maxWidthOfTree = INT_MIN;
+	int widthCounter;
+	for(int levelCounter = 0;levelCounter < maxLevel;levelCounter++){
+		widthCounter = 0;
+		for(int nodesInLevelCounter = pow(2,levelCounter)-1;nodesInLevelCounter < pow(2,levelCounter)-1+pow(2,levelCounter);nodesInLevelCounter++){
+			if((itToRankNodeMap = ptrToHashMapOfNodesOfTree->rankNodeMap.find(nodesInLevelCounter)) != ptrToHashMapOfNodesOfTree->rankNodeMap.end()){
+				widthCounter++;
+			}
+		}
+		if(maxWidthOfTree < widthCounter){
+			maxWidthOfTree = widthCounter;
+		}
+	}
+	return maxWidthOfTree;
+}
 #endif /* MAXIMUMWIDTHOFTREE_H_ */

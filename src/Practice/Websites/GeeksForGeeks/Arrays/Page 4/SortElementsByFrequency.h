@@ -40,12 +40,15 @@ using namespace __gnu_cxx;
 
 #ifndef SORTELEMENTSBYFREQUENCY_H_
 #define SORTELEMENTSBYFREQUENCY_H_
-
-void SortElementsByFrequency(int userInput[],int sizeOfArray){
-	struct auxDS{
+struct auxDS{
 		int value;
 		int frequency;
 	};
+bool frequencySortFunction(auxDS firstElement,auxDS secondElement){
+	return firstElement.frequency > secondElement.frequency;
+}
+
+void SortElementsByFrequency(int userInput[],int sizeOfArray){
 	hash_map<int,int> frequencyTable;
 	hash_map<int,int>::iterator itToFrequencyTable;
 	set<int> uniqueElements;
@@ -70,10 +73,14 @@ void SortElementsByFrequency(int userInput[],int sizeOfArray){
 		arrayOfElements[crawlerToArray].value = itToFrequencyTable->first;
 	}
 
-	//Sort Elements By Frequency and fill the inpur array
+	//Sort Elements By Frequency and fill the input array
+	sort(arrayOfElements,arrayOfElements+numberOfUniqueElements,frequencySortFunction);
+	for(int counter=0;counter < numberOfUniqueElements;counter++){
+		userInput[counter] = arrayOfElements[counter].value;
+	}
 }
 
-void sortElementsByFrequecyHashSort(int userInput[],int sizeOfArray){
+void sortElementsByFrequencyHashSort(int userInput[],int sizeOfArray){
 
 }
 

@@ -54,8 +54,27 @@ tNode *ConstructBSTUsingSortedArray(int userInput[],int startIndex,int endIndex)
 	return nodeOfBST;
 }
 
-tNode *ConstructBSTUsingSortedArrayIterative(int userInput[],int startIndex,int endIndex){
+struct auxSpaceForConversion{
+	int startIndex;
+	int endIndex;
+};
 
+tNode *ConstructBSTUsingSortedArrayIterative(int userInput[],int sizeOfUserInput){
+	if(sizeOfUserInput == 0 || userInput == NULL){
+		return NULL;
+	}
+	queue<auxSpaceForConversion> auxSpace;
+	queue<tNode *>	auxSpaceForNodes;
+	auxSpaceForConversion temp,currentElement;
+	tNode *currentNode;
+	temp.startIndex = 0;
+	temp.endIndex = sizeOfUserInput -1;
+	int middleElement;
+	while(!auxSpace.empty()){
+		currentElement = auxSpace.front();
+		middleElement = (currentElement.startIndex +  currentElement.endIndex)/2;
+
+	}
 }
 
 #endif /* SORTEDARRAYTOBST_H_ */

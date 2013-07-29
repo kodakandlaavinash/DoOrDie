@@ -100,4 +100,32 @@ bool CheckForChildrenSumPropertyBottomUpDriver(tNode *ptr){
 	}
 }
 
+bool CheckForChildrenSumPropertyLevelOrderTopBottom(tNode *ptr){
+	if(ptr == NULL){
+		return true;
+	}
+	hashmapForTreeDS *levelOrderTreeDS = GetHashMapForTreeDS(ptr);
+	hash_map<int,tNode *> rankNodeMap = levelOrderTreeDS->rankNodeMap;
+	hash_map<int,tNode *>::iterator *itToRankNodeMap;
+	hash_map<int,tNode *>::iterator *itToLeftChild;
+	hash_map<int,tNode *>::iterator *itToRightChild;
+	int currentRank;
+	int sum;
+	for(itToRankNodeMap = rankNodeMap.begin();itToRankNodeMap != rankNodeMap.end();itToRankNodeMap++){
+		currentRank = (*itToRankNodeMap)->first;
+		itToLeftChild = rankNodeMap.find((2*currentRank)+1);
+		itToRightChild = rankNodeMap.find((2*currentRank)+2);
+		sum = 0;
+		if(itToLeftChild == NULL){
+			sum += (*itToLeftChild)->second->value;
+		}else{
+			sum += (*itToRightChild)->second->value;
+		}
+		if(sum != (*itToRankNodeMap)->second->value){
+			return false;
+		}
+	}
+	return true;
+}
+
 #endif /* CHECKFORCHILDRENSUMPROPERTY_H_ */

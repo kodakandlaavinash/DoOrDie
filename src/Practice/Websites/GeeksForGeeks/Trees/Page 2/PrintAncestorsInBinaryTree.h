@@ -93,4 +93,27 @@ bool PrintAncestorsAuxStack(tNode *ptr,int target,stack<tNode *> auxSpace){
 	bool truthValueRightTree = PrintAncestorsAuxStack(ptr->right,target,auxSpace);
 }
 
+void PrintAncestorsHashMap(tNode *ptr,int target){
+	if(ptr == NULL){
+		return;
+	}
+	hashmapForTreeDS *hashMapTree = GetHashMapForTreeDS(ptr);
+	hash_map<int,tNode *> rankNodeMap = hashMapTree->rankNodeMap;
+	hash_map<unsigned int,int> nodeRankMap = hashMapTree->nodeRankMap;
+	hash_map<int,tNode *>::iterator *itToRankNodeMap;
+	hash_map<unsigned int,int>::iterator *itToNodeRankMap;
+	int currentRank;
+	for(itToNodeRankMap = nodeRankMap.begin();itToNodeRankMap = nodeRankMap.end();itToNodeRankMap++){
+		if(((tNode *)(*itToNodeRankMap)->first)->value == target){
+			currentRank = (*itToNodeRankMap)->second;
+			while(currentRank >= 0){
+				itToRankNodeMap = rankNodeMap.find(currentRank);
+				printf("%d\t",(*itToRankNodeMap)->second->value);
+				currentRank /= 2;
+			}
+		}
+	}
+}
+
+
 #endif /* PRINTANCESTORSINBINARYTREE_H_ */

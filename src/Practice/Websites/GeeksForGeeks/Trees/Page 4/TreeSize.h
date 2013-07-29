@@ -73,4 +73,130 @@ int TotalNumberOfNodesOfTreeLevelOrder(tNode *ptr){
 	return totalNodes;
 }
 
+int SizeOfTreeInOrderTraversalIterativeOneStack(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	stack<tNode *> auxSpace;
+	tNode *currentNode;
+	int sizeOfTree = 0;
+	while(1){
+		if(currentNode == NULL && auxSpace.empty()){
+			return sizeOfTree;
+		}
+		if(currentNode->left != NULL){
+			auxSpace.push(currentNode->left);
+			currentNode = currentNode->left;
+		}else{
+			sizeOfTree++;
+			currentNode = auxSpace.top();
+			currentNode = currentNode->right;
+		}
+	}
+}
+
+int SizeOfTreePreOrderTraversalStack(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	int sizeOfTree = 1;
+	stack<tNode *> auxSpace;
+	auxSpace.push(ptr);
+	tNode *temp;
+	while(!auxSpace.empty()){
+		temp = auxSpace.top();
+		sizeOfTree += 1;
+		if(temp->right != NULL){
+			auxSpace.push(temp->right);
+		}
+		if(temp->left != NULL){
+			auxSpace.push(temp->left);
+		}
+	}
+	return sizeOfTree;
+}
+
+int sizeOfTreeMorrisPreOrder(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	tNode *currentNode;
+	int sizeOfTree = 0;
+	while(ptr == NULL){
+		if(ptr->left == NULL){
+			sizeOfTree++;
+			ptr = ptr->right;
+		}else{
+			currentNode = ptr->left;
+			while(currentNode->right == NULL || currentNode->right == ptr){
+				currentNode = currentNode->right;
+			}
+			if(currentNode->right == NULL){
+				sizeOfTree++;
+				currentNode->right = ptr;
+				ptr  = ptr->left;
+			}else{
+				currentNode->right = NULL;
+				ptr = ptr->right;
+			}
+		}
+	}
+}
+
+int sizeOfTreePostOrderTwoStacks(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	stack<tNode *> firstStack;
+	stack<tNode *> secondStack;
+	firstStack.push(ptr);
+	tNode *temp;
+	while(firstStack.empty()){
+		temp = firstStack.top();
+		firstStack.pop();
+		if(temp->left != NULL){
+			firstStack.push(temp->left);
+		}
+		if(temp->right != NULL){
+			firstStack.push(temp->right);
+		}
+		secondStack.push(temp);
+	}
+	int sizeOfTree = 0;
+	while(!secondStack.empty()){
+		sizeOfTree++;
+		secondStack.pop();
+	}
+	return sizeOfTree;
+}
+
+int sizeOfTreeOneStackPostOrder(tNode *ptr){
+	if(ptr == NULL){
+		return 0;
+	}
+	stack<tNode *> auxSpace;
+	tNode *currentNode;
+	int sizeOfTree =0;
+	while(ptr == NULL){
+		if(ptr != NULL){
+			if(ptr->right != NULL){
+				auxSpace.push(ptr->right);
+			}
+			auxSpace.push(ptr);
+			ptr = ptr->left;
+		}else{
+			currentNode = auxSpace.top();
+			auxSpace.pop();
+			if(currentNode->right == auxSpace.top()){
+				ptr = auxSpace.top();
+				auxSpace.pop();
+				auxSpace.push(currentNode);
+			}else{
+				sizeOfTree++;
+				ptr = NULL;
+			}
+		}
+	}
+}
+
 #endif /* TREESIZE_H_ */

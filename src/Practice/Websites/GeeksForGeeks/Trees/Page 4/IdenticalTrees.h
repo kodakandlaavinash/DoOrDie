@@ -157,7 +157,20 @@ bool AreTreesIdenticalHashMap(tNode *ptr1,tNode *ptr2){
 		return false;
 	}
 
+	hashmapForTreeDS *nodesInHashMapTree1 = GetHashMapForTreeDS(ptr1);
+	hashmapForTreeDS *nodesInHashMapTree2 = GetHashMapForTreeDS(ptr2);
+	hash_map<int,tNode *>::iterator *itToRankNodeMapTree1;
+	hash_map<int,tNode *>::iterator *itToRankNodeMapTree2;
 
+	for(itToRankNodeMapTree1 = nodesInHashMapTree1->rankNodeMap.begin();itToRankNodeMapTree1 != nodesInHashMapTree1->rankNodeMap.end();itToRankNodeMapTree1++){
+		if((itToRankNodeMapTree2 = nodesInHashMapTree2->rankNodeMap.find((*itToRankNodeMapTree1)->first))!= nodesInHashMapTree2->rankNodeMap.end()){
+			if((*itToRankNodeMapTree2)->second->value != (*itToRankNodeMapTree1)->second->value){
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
 	return true;
 }
 

@@ -60,6 +60,11 @@ struct levelOrderDS{
 	hash_map<int,tNode *> valueNodeMap;
 };
 
+struct hashmapForTreeDS{
+	hash_map<int,tNode *> rankNodeMap;
+	hash_map<unsigned int,int> nodeRankMap;
+};
+
 struct augumentedTNode{
 	int value;
 	augumentedTNode *left;

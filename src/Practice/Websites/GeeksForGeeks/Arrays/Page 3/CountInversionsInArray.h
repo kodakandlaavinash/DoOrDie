@@ -58,4 +58,61 @@ int FindNumberOfInversionsInArray(int userInput[],int sizeOfArray){
 	return numberOfInversions;
 }
 
+void InversionCountMainMerge(int userInput[],int startIndex,int middleIndex,int endIndex,int &inversionCount){
+	int firstArrayCrawler = startIndex;
+	int secondArrayCrawler = middleIndex+1;
+	vector<int> tempForMerge;
+	while(firstArrayCrawler <= middleIndex && secondArrayCrawler <= endIndex){
+		if(userInput[firstArrayCrawler] < userInput[secondArrayCrawler]){
+			tempForMerge.push_back(userInput[firstArrayCrawler]);
+			firstArrayCrawler++;
+		}else{
+			tempForMerge.push_back(userInput[secondArrayCrawler]);
+			secondArrayCrawler++;
+			inversionCount += (middleIndex - firstArrayCrawler);
+		}
+	}
+	while(firstArrayCrawler <= middleIndex){
+		tempForMerge.push_back(userInput[firstArrayCrawler]);
+		firstArrayCrawler++;
+	}
+	while(secondArrayCrawler <= endIndex){
+		tempForMerge.push_back(userInput[secondArrayCrawler]);
+		secondArrayCrawler++;
+	}
+	for(int counter =0,arrayCounter = startIndex;counter < tempForMerge.size();counter++,arrayCounter++){
+		userInput[startIndex] = tempForMerge[counter];
+	}
+}
+
+void FindInversionCountMerge(int userInput[],int startIndex,int endIndex,int &inversionCount){
+	if(startIndex > endIndex){
+		return;
+	}
+	int middleIndex = (startIndex + endIndex)/2;
+	FindInversionCountMerge(userInput,startIndex,middleIndex,inversionCount);
+	FindInversionCountMerge(userInput,middleIndex+1,endIndex,inversionCount);
+	InversionCountMainMerge(userInput,startIndex,middleIndex,endIndex,inversionCount);
+}
+
+int InversionCountPlainSorting(int userInput[],int sizeOfArray){
+	if(sizeOfArray == 0){
+		return 0;
+	}
+	vector<int> copyOfUserInput;
+	for(int counter =0;counter < sizeOfArray;counter++){
+		copyOfUserInput.push_back(userInput[counter]);
+	}
+	sort(copyOfUserInput.begin(),copyOfUserInput.end());
+	hash_map<int,int> valueIndexMap;
+	for(int counter = 0;counter < copyOfUserInput.size();counter++){
+		valueIndexMap.insert(pair<int,int>(copyOfUserInput[counter],counter));
+	}
+	int inversionCounter = 0;
+	for(int counter =0;counter < sizeOfArray;counter++){
+		inversionCounter = abs(counter - valueIndexMap.find(userInput[counter]));
+	}
+	return inversionCounter;
+}
+
 #endif /* COUNTINVERSIONSINARRAY_H_ */

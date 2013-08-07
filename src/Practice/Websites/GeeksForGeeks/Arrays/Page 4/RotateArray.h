@@ -92,7 +92,7 @@ void RotateArrayJugglingStrategy(int userInput[],int sizeOfArray,int rotateBy){
 	if(userInput == NULL){
 		return;
 	}
-	int gcdOfNumbers = FindHCFOfTwoNumbers(sizeOfArray,rotateBy);
+	//int gcdOfNumbers = FindHCFOfTwoNumbers(sizeOfArray,rotateBy);
 
 }
 

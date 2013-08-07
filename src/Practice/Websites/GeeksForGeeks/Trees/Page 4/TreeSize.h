@@ -141,6 +141,7 @@ int sizeOfTreeMorrisPreOrder(tNode *ptr){
 			}
 		}
 	}
+	return sizeOfTree;
 }
 
 int sizeOfTreePostOrderTwoStacks(tNode *ptr){
@@ -197,6 +198,7 @@ int sizeOfTreeOneStackPostOrder(tNode *ptr){
 			}
 		}
 	}
+	return sizeOfTree;
 }
 
 #endif /* TREESIZE_H_ */

@@ -68,5 +68,14 @@ void ConstructTernarySearchTree(ternarySearchTreeNode **ptr,char *word){
 		}
 	}
 }
+
+bool SearchTernarySearchTree(ternarySearchTreeNode *ptr,char *searchWord){
+
+}
+
+void PrintAllSuggestions(ternarySearchTreeNode *ptr,char *searchWord){
+
+}
+
 #endif /* TERNARYSEARCHTREE_H_ */
 

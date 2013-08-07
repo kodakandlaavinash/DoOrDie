@@ -108,4 +108,19 @@ int FindEquilibriumIndexOfArrayWithLimitedAuxSpace(int userInput[],int sizeOfArr
 	return INT_MIN;
 }
 
+void FindEquilibriumIndexOfAnArrayRecursion(int userInput[],int sizeOfArray,int index,int &leftSum,int &rightSum,int &equilibriumIndex){
+	if(userInput == NULL || sizeOfArray == 0){
+		return;
+	}
+	if(index >= sizeOfArray){
+		return;
+	}
+	leftSum = userInput[index];
+	FindEquilibriumIndexOfAnArrayRecursion(userInput,sizeOfArray,index+1,leftSum,rightSum);
+	rightSum = userInput[index];
+	if(leftSum - userInput[index] == rightSum - userInput[index]){
+		equilibriumIndex = index;
+	}
+}
+
 #endif /* FINDTHEEQUILIBRIUMINDEXOFANARRAY_H_ */

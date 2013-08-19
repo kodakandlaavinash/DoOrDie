@@ -83,4 +83,38 @@ int LongestPalindromicSubsequenceMemoziation(int userInput[],int startCrawler,in
 
 }
 
+int LongestPalindromicSubSequenceO2N(int userInput[],int sizeOfArray){
+	if(userInput == NULL || sizeOfArray == 0){
+		return 0;
+	}
+	vector<int> currentSubSet;
+	int maxPalindromicLength = INT_MIN;
+	for(int subSetCounter = 0;subSetCounter < pow(2,sizeOfArray);subSetCounter++){
+		bitset<sizeOfArray> bitRepSubSet(subSetCounter);
+		currentSubSet.clear();
+		for(int bitCounter = 0;bitCounter < sizeOfArray;bitCounter++){
+			if(bitRepSubSet[bitCounter]){
+				currentSubSet.push_back(userInput[bitCounter]);
+			}
+		}
+		//Elliminating zero size
+		if(currentSubSet.size() > 0){
+			int frontCrawler = 0,backCrawler = currentSubSet.size();
+			int palindromeLength = 0;
+			bool isPalindrome = true;
+			while(frontCrawler < backCrawler){
+				if(userInput[frontCrawler] != userInput[backCrawler]){
+					isPalindrome = false;
+				}
+				palindromeLength += 1;
+			}
+			if(isPalindrome){
+				if(maxPalindromicLength < palindromeLength){
+					maxPalindromicLength = palindromeLength;
+				}
+			}
+		}
+	}
+	return maxPalindromicLength;
+}
 #endif /* LONGESTPALINDROMICSUBSEQUENCE_H_ */

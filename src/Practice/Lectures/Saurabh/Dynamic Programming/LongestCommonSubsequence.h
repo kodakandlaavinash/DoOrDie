@@ -59,4 +59,40 @@ int LongestCommonSubsequenceMemoziation(char userInput1[],int sizeOfArray1,char 
 int LongestCommonSubsequenceDPStrategy2(int userInput1[],int sizeOfArray1,int userInput2[],int sizeOfArray2,int crawler1,int crawler2){
 
 }
+
+int LongestCommonSubSequenceO2N(int userInput1[],int sizeOfArray1,int userInput2[],int sizeOfArray2){
+	if(userInput1 == NULL || sizeOfArray1 == 0 || userInput2 == NULL || sizeOfArray2 == 0){
+		return 0;
+	}
+	list<vector<int>> subsetsOfUserInput1,subsetsOfUserInput2;
+	for(int counter = 0;counter < pow(2,sizeOfArray1);counter++){
+		bitset<sizeOfArray1> bitRep;
+		vector<int> currentSubSet;
+		for(int bitCounter  = 0;bitCounter < bitRep.size();bitCounter++){
+			if(bitRep[bitCounter]){
+				currentSubSet.push_back(userInput1[bitCounter]);
+			}
+		}
+		subsetsOfUserInput1.push_back(currentSubSet);
+		currentSubSet.clear();
+	}
+
+	for(int counter = 0;counter < pow(2,sizeOfArray2);counter++){
+		bitset<sizeOfArray2> bitRep;
+		vector<int> currentSubSet;
+		for(int bitCounter = 0;bitCounter < bitRep.size();bitCounter++){
+			if(bitRep[bitCounter]){
+				currentSubSet.push_back(userInput2[bitCounter]);
+			}
+		}
+		subsetsOfUserInput2.push_back(currentSubSet);
+		currentSubSet.clear();
+	}
+
+	for(int firstSubSetCounter = 0;firstSubSetCounter < subsetsOfUserInput1.size();firstSubSetCounter++){
+		for(int secondSubSetCounter =0;secondSubSetCounter < subsetsOfUserInput2.size();secondSubSetCounter++){
+
+		}
+	}
+}
 #endif /* LONGESTCOMMONSUBSEQUENCE_H_ */

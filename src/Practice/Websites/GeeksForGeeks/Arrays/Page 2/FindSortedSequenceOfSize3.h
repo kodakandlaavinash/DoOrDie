@@ -107,19 +107,30 @@ int *FindSortedSequenceOfSizeThreeONAuxSpace(int userInput[],int sizeOfArray){
 	return NULL;
 }
 
-void FindSortedSequenceOfSizeThreeRecusion(int userInput[],int sizeOfArray,int index,int smallElementLR,int &greaterElementRL,int **result){
+int *FindSortedSequenceOfSizeThreeRecusion(int userInput[],int sizeOfArray,int index,int smallElementLR,int &greaterElementRL,int **result){
 	if(index >= sizeOfArray || userInput == NULL){
 		return;
 	}
 	if(index ==  sizeOfArray-1){
-
+		greaterElementRL = userInput[index];
+		return;
 	}
-	if(userInput[index] >smallElement){
+	if(userInput[index] < smallElement){
 		smallElementLR = userInput[index];
 	}
-	FindSortedSequenceOfSizeThreeRecusion(userInput,sizeOfArray,index+1,smallElement,result);
-
-	//Incomplete
+	int *result = FindSortedSequenceOfSizeThreeRecusion(userInput,sizeOfArray,index+1,smallElement,result);
+	if(result != null){
+		if(smallElementLR < userInput[index] && userInput[index] < greaterElementRL){
+			int returnResult[3];
+			returnResult[0] = smallElementLR;
+			returnResult[1] = userInput[index];
+			returnResult[2] = greaterElementRL;
+			return returnResult;
+		}
+		if(userInput[index] > greaterElementRL){
+			greaterElementRL = userInput[index];
+		}
+	}
 }
 
 #endif /* FINDSORTEDSEQUENCEOFSIZE3_H_ */

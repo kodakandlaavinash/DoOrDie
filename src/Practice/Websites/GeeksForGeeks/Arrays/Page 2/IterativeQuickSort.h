@@ -41,5 +41,45 @@ using namespace __gnu_cxx;
 #ifndef ITERATIVEQUICKSORT_H_
 #define ITERATIVEQUICKSORT_H_
 
+void QuickSortDivideStep(int userInput[],int startArray,int endArray){
+	if(userInput == NULL){
+		return;
+	}
+	int dividingElementValue = userInput[endArray];
+	int tempForSwap;
+	while(startArray < endArray){
+		while(userInput[startArray]  < dividingElementValue){
+			startArray++;
+		}
+		while(userInput[endArray] > dividingElementValue && startArray < endArray){
+			endArray--;
+		}
+		if(startArray > endArray){
+			return endArray;
+		}
+		tempForSwap = userInput[startArray];
+		userInput[startArray] = userInput[endArray];
+		userInput[endArray] = tempForSwap;
+	}
+}
+
+void QuickSortIterative(int userInput[],int sizeOfArray){
+	if(userInput == NULL || sizeOfArray == 0){
+		return;
+	}
+	stack<int> auxSpaceForQuickSort;
+	auxSpaceForQuickSort.push(0);
+	auxSpaceForQuickSort.push(sizeOfArray-1);
+	int startIndex,endIndex,dividingIndex;
+	while(auxSpaceForQuickSort.size()){
+		endIndex = auxSpaceForQuickSort.top();auxSpaceForQuickSort.pop();
+		startIndex = auxSpaceForQuickSort.top();auxSpaceForQuickSort.pop();
+		dividingIndex = QuickSortDivideStep(userInput,startIndex,endIndex);
+		auxSpaceForQuickSort.push(dividingIndex+1);
+		auxSpaceForQuickSort.push(endIndex);
+		auxSpaceForQuickSort.push(startIndex);
+		auxSpaceForQuickSort.push(dividingIndex);
+	}
+}
 
 #endif /* ITERATIVEQUICKSORT_H_ */

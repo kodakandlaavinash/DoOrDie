@@ -41,25 +41,45 @@ using namespace __gnu_cxx;
 #ifndef MAXIMUMSUBSEQUENCESUM_H_
 #define MAXIMUMSUBSEQUENCESUM_H_
 
-int MaximumSubSequenceSum(int userInput[],int i){
-	/*if(i<0){
-		return 0;
+int MaximumSubSequenceSum(int userInput[],int sizeOfArray,int currentIndex){
+	if(sizeOfArray < 0 || currentIndex < 0){
+		return INT_MIN;
 	}
-	if(i == 0){
+	if(currentIndex == 0){
 		return userInput[0];
 	}
-	int maxSum = INT_MIN;
-	int subsequenceSum = 0;
-	for(int counter =i-1;counter >= 0;counter--){
-		subsequenceSum = max(userInput[counter] + MaximumSubSequenceSum(userInput,counter-1),userInput[counter]);
-		if(maxSum < subsequenceSum){
-			maxSum = subsequenceSum;
+	int maxSubSequenceSum = INT_MIN,result;
+	for(int counter = sizeOfArray -1;counter >=0;counter++){
+		result = MaximumSubSequenceSum(userInput,counter-1,currentIndex-1);
+		if(result > maxSubSequenceSum){
+			result = maxSubSequenceSum;
 		}
 	}
-	return maxSum;*/
+	return maxSubSequenceSum;
 }
 
 int MaximumSubSequenceSumMemoziation(int userInput[],int sizeOfArray,int crawler){
 
 }
+
+int MaximumSubSequenceSumO2N(int userInput[],int sizeOfArray){
+	if(userInput == NULL || sizeOfArray == 0){
+		return INT_MIN;
+	}
+	int maxSubSequenceSum = INT_MIN,currentSum;
+	for(int counter =0;counter < pow(2,sizeOfArray);counter++){
+		bitset<sizeOfArray> binaryRepOfCounter;
+		currentSum = 0;
+		for(int bitCounter = 0;bitCounter < sizeOfArray;bitCounter++){
+			if(binaryRepOfCounter[bitCounter]){
+				currentSum += userInput[bitCounter];
+			}
+		}
+		if(maxSubSequenceSum < currentSum){
+			maxSubSequenceSum = currentSum;
+		}
+	}
+	return maxSubSequenceSum;
+}
+
 #endif /* MAXIMUMSUBSEQUENCESUM_H_ */

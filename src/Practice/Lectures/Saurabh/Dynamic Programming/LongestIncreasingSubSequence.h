@@ -41,8 +41,25 @@ using namespace __gnu_cxx;
 #ifndef LONGESTINCREASINGSUBSEQUENCE_H_
 #define LONGESTINCREASINGSUBSEQUENCE_H_
 
-void LongestIncreasingSubSequence(int userInput[],int sizeOfArray,int i){
-
+int LongestIncreasingSubSequence(int userInput[],int sizeOfArray,int currentIndex){
+	if(sizeOfArray < 0 || currentIndex < 0){
+		return INT_MIN;
+	}
+	if(sizeOfArray == 1){
+		return 1;
+	}
+	int maxLongestIncreasingSequence = INT_MIN,result;
+	for(int counter  = sizeOfArray-1;counter >= 0;counter++){
+		if(userInput[currentIndex] > userInput[counter]){
+			result = 1 + LongestIncreasingSubSequence(userInput,sizeOfArray-1,currentIndex-1);
+		}else{
+			result = 1;
+		}
+		if(result > maxLongestIncreasingSequence){
+			maxLongestIncreasingSequence = result;
+		}
+	}
+	return maxLongestIncreasingSequence;
 }
 
 void LongestIncreasingSubSequenceMemoziation(int userInput[],int sizeOfArray,int i){

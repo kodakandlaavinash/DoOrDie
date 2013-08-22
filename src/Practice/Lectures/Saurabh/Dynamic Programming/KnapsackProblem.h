@@ -76,4 +76,92 @@ int ZeroOneKnapsackProblemMemoization(int weights[],int benefits[],int sizeOfArr
 	}
 }
 
+int ZeroOneKnapsackProblemO2N(int weights[],int benefits[],int sizeOfArray,int knapsackMaxWeight){
+	if(knapsackMaxWeight == 0||  sizeOfArray == 0 || weights == NULL || benefits == NULL){
+		return 0;
+	}
+	int maxBenefit = INT_MIN;
+	int currentSetWeight,currentSetBenefit;
+	for(int counter = 0;counter < pow(2,sizeOfArray);counter++){
+		bitset<sizeOfArray> bitRepOfDecimal;
+		currentSetBenefit = 0;currentSetWeight = 0;
+		for(int bitCounter = 0;bitCounter < sizeOfArray;bitCounter++){
+			if(bitRepOfDecimal[bitCounter]){
+				currentSetWeight += weights[bitCounter];
+				currentSetBenefit += benefits[bitCounter];
+			}
+		}
+		if(currentSetWeight < knapsackMaxWeight){
+			if(maxBenefit < currentSetBenefit){
+				maxBenefit = currentSetBenefit;
+			}
+		}
+	}
+	return maxBenefit;
+}
+
+void ZeroOneKnapsackProblemO2NRecursion(int weights[],int benefits[],int sizeOfArray,int knapsackMaxWeight,int currentIndex,int currentWeight,int currentBenefit,int maxBenefit = INT_MIN){
+	if(currentIndex >= sizeOfArray){
+		return;
+	}
+	if(currentIndex == sizeOfArray-1){
+		if(currentWeight+weights[currentIndex] <= knapsackMaxWeight){
+			if(currentBenefit+benefits[currentIndex] > maxBenefit){
+				maxBenefit = currentBenefit + benefits[currentIndex];
+			}
+		}
+		return;
+	}
+	ZeroOneKnapsackProblemO2NRecursion(weights,benefits,sizeOfArray,knapsackMaxWeight,currentIndex+1,weights[currentIndex]+currentWeight,benefits[currentIndex]+currentBenefit,maxBenefit);
+	ZeroOneKnapsackProblemO2NRecursion(weights,benefits,sizeOfArray,knapsackMaxWeight,currentIndex+1,currentWeight,currentBenefit,maxBenefit);
+}
+
+int KnapsackProblemBranchAndBoundProblem(int weights[],int benefits[],int sizeOfArray,int knapsackMaxWeight){
+	if(knapsackMaxWeight == 0||  sizeOfArray == 0 || weights == NULL || benefits == NULL){
+		return 0;
+	}
+	int maxBenefit = INT_MIN;
+	int currentSetWeight,currentSetBenefit;
+	bool isCompleted;
+	for(int counter = 0;counter < pow(2,sizeOfArray);counter++){
+		bitset<sizeOfArray> bitRepOfDecimal;
+		currentSetBenefit = 0;currentSetWeight = 0;
+		isCompleted = true;
+		for(int bitCounter = 0;bitCounter < sizeOfArray;bitCounter++){
+			if(currentSetWeight+weights[bitCounter] <= maxBenefit){
+				currentSetWeight += weights[bitCounter];
+				currentSetBenefit += benefits[bitCounter];
+			}else{
+				isCompleted = false;
+			}
+		}
+		if(isCompleted){
+			if(maxBenefit < currentSetBenefit){
+				maxBenefit = currentSetBenefit;
+			}
+		}
+	}
+	return maxBenefit;
+}
+
+int KnapsackProblemBranchAndBoundProblemRecursion(int weights[],int benefits[],int sizeOfArray,int knapsackMaxWeight,int currentWeight,int currentBenefit,int &maxBenefit,int currentIndex){
+	if(currentIndex >= sizeOfArray){
+		return;
+	}
+	if(currentIndex == sizeOfArray-1){
+		if(currentWeight+weights[currentIndex] <= knapsackMaxWeight){
+			if(currentBenefit+benefits[currentIndex] > maxBenefit){
+				maxBenefit = currentBenefit + benefits[currentIndex];
+			}
+		}
+		return;
+	}
+	if(currentWeight > knapsackMaxWeight){
+		return;
+	}
+	KnapsackProblemBranchAndBoundProblemRecursion(weights,benefits,sizeOfArray,knapsackMaxWeight,weights[currentIndex]+currentWeight,benefits[currentIndex]+currentBenefit,maxBenefit,currentIndex+1);
+	KnapsackProblemBranchAndBoundProblemRecursion(weights,benefits,sizeOfArray,knapsackMaxWeight,currentWeight,currentBenefit,maxBenefit,currentIndex+1);
+}
+
+
 #endif /* KNAPSACKPROBLEM_H_ */

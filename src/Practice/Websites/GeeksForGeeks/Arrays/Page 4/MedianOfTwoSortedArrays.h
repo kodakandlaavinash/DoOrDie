@@ -41,6 +41,26 @@ using namespace __gnu_cxx;
 #ifndef MEDIANOFTWOSORTEDARRAYS_H_
 #define MEDIANOFTWOSORTEDARRAYS_H_
 
+int MedianOfTwoSortedArraysPostSorting(int sortedUserInput1[],int sizeOfUserInput1,int sortedUserInput2[],int sizeOfUserInput2){
+	if(sortedUserInput1 == NULL || sizeOfUserInput1 == 0||sortedUserInput2 == NULL || sizeOfUserInput2 == 0){
+		return 0;
+	}
+	int auxSpaceFiller = -1,sizeOfAuxArray = sizeOfUserInput1 + sizeOfUserInput2-1;
+	int *auxSpace = (int *)calloc(sizeOfAuxArray,sizeof(int));
+	for(int counter = 0;counter < sizeOfUserInput1;counter++){
+		auxSpace[++auxSpaceFiller] = sortedUserInput1[counter];
+	}
+	for(int counter = 0;counter < sizeOfUserInput2;counter++){
+		auxSpace[++auxSpaceFiller] = sortedUserInput2[counter];
+	}
+	sort(auxSpace,auxSpace+sizeOfAuxArray);
+	if(sizeOfAuxArray%2 == 0){
+		return (auxSpace[(sizeOfAuxArray/2)]+auxSpace[(sizeOfAuxArray/2+1)])/2;
+	}else{
+		return auxSpace[sizeOfAuxArray/2];
+	}
+}
+
 int MedianOfTwoSortedArrays(int sortedUserInput1[],int sizeOfUserInput1,int sortedUserInput2[],int sizeOfUserInput2){
 	if(sortedUserInput1 == null && sortedUserInput2 == null && sizeOfUserInput1 ==0 && sizeOfUserInput2 == 0){
 		return 0;
@@ -62,11 +82,31 @@ int MedianOfTwoSortedArrays(int sortedUserInput1[],int sizeOfUserInput1,int sort
 	}
 }
 
-int MedianOfTwoSortedArraysByIndividualMedians(int sortedUserInput1[],int sizeOfUserInput1,int sortedUserInput2[],int sizeOfUserInput2){
-	if(sortedUserInput1 == null || sortedUserInput2 == null || sizeOfUserInput1 ==0 || sizeOfUserInput2 == 0){
-		return 0;
+int MedianOfTwoSortedArraysByIndividualMedians(int sortedUserInput1[],int startOfUserInput1,int endOfUserInput1,int sortedUserInput2[],int startOfUserInput2,int endOfUserInput2){
+	if(startOfUserInput1 > endOfUserInput1 || startOfUserInput2 > endOfUserInput2){
+		return INT_MIN;
 	}
-
+	int medianOfFirstSortedArray1,medianOfSecondSortedArray2;
+	if((endOfUserInput1-startOfUserInput1)%2 == 1){
+		medianOfFirstSortedArray1 = sortedUserInput1[(endOfUserInput1-startOfUserInput1)/2];
+	}else{
+		medianOfFirstSortedArray1 = (sortedUserInput1((endOfUserInput1-startOfUserInput1)/2)+sortedUserInput1((endOfUserInput1-startOfUserInput1)/2+1))/2;
+	}
+	if((endOfUserInput2 - startOfUserInput1)%2 == 1){
+		medianOfFirstSortedArray2 = sortedUserInput2[(endOfUserInput2-startOfUserInput2)/2];
+	}else{
+		medianOfFirstSortedArray2 = (sortedUserInput2((endOfUserInput2-startOfUserInput2)/2)+sortedUserInput2((endOfUserInput2-startOfUserInput2)/2+1))/2;
+	}
+	if(medianOfFirstSortedArray1 == medianOfSecondSortedArray2){
+		return medianOfFirstSortedArray1;
+	}
+	if(medianOfFirstSortedArray1 > medianOfSecondSortedArray2){
+		return MedianOfTwoSortedArraysByIndividualMedians(sortedUserInput1,startOfUserInput1,(endOfUserInput1-startOfUserInput1)/2,sortedUserInput2,(endOfUserInput2-startOfUserInput2)/2,endOfUserInput2);
+	}else{
+		return MedianOfTwoSortedArraysByIndividualMedians(sortedUserInput1,(endOfUserInput1-startOfUserInput1)/2,endOfUserInput1,sortedUserInput1,startOfUserInput2,(endOfUserInput2 - startOfUserInput2)/2);
+	}
 }
+
+
 
 #endif /* MEDIANOFTWOSORTEDARRAYS_H_ */

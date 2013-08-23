@@ -44,11 +44,21 @@ using namespace __gnu_cxx;
 #define MAX_ROWS_MATRIX_SUB_SUM 10
 #define MAX_COLUMNS_MATRIX_SUB_SUM 10
 
-int MaximumMatrixSubSum(int userInput[][MAX_COLUMNS_MATRIX_SUB_SUM],int noOfRows,int noOfColumns){
+int MaximumRowSumDP(){
+
+}
+
+int MaximumMatrixSumDP(){
+
+}
+
+int MaximumMatrixSubSumDriver(int userInput[][MAX_COLUMNS_MATRIX_SUB_SUM],int noOfRows,int noOfColumns){
 	if(userInput == NULL || noOfRows == 0 || noOfColumns == 0){
 		return INT_MIN;
 	}
+}
 
+int MaximumMatrixSubSumMemoization(){
 
 }
 

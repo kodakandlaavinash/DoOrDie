@@ -75,26 +75,65 @@ int MedianOfNumberONLOGN(int userInput[],int sizeOfArray){
 	return userInput[sizeOfArray/2];
 }
 
-int FindMedianOfNumbersOfSmallGroup(int userInput[],int startIndex,int endIndex){
-	sort(userInput+startIndex,userInput+endIndex);
-	return userInput[(startIndex+endIndex)/2];
+int MedianOfSmallGroup(vector<int> userInput){
+	sort(userInput.begin(),userInput.end());
+	return userInput[userInput.size()/2 - 1];
 }
 
-int GetApproximateMedian(int userInput[],int startIndex,int endIndex){
-	vector<int> auxSpace;
-	for(int counter=startIndex;counter <= endIndex;startIndex+=5){
-		auxSpace.push_back(FindMedianOfNumbersOfSmallGroup(userInput,counter,counter+4));
+int MedianOfNumbersON(vector<int> userInput);
+
+int FindApproximateMedianOfNumbers(vector<int> userInput){
+	if(userInput.size() <= 5){
+		return MedianOfSmallGroup(userInput);
 	}
-	sort(auxSpace.begin(),auxSpace.end());
-	return auxSpace[auxSpace.size()/2];
-}
-
-int MedianOfNumbersOfON(int userInput[],int startIndex,int endIndex,int rank){
-	if(startIndex > endIndex){
-		return INT_MIN;
+	vector<int> mediansOfSmallerGroup;
+	vector<int> temp,tempSize;
+	for(int counter = 0;counter < userInput.size();){
+		temp.clear();
+		tempSize = 5;
+		while(counter < userInput.size()&&tempSize != 0){
+			temp.push_back(userInput[counter]);
+			counter++;
+			tempSize--;
+		}
+		mediansOfSmallerGroup.push_back(MedianOfSmallGroup(temp));
 	}
-	int appxMedian = GetApproximateMedian(userInput,startIndex,endIndex);
-
+	return MedianOfNumbersON(mediansOfSmallerGroup,mediansOfSmallerGroup.size()/2);
 }
 
+int MedianOfNumbersON(vector<int> userInput,int rank){
+	if(userInput.size() <= 5){
+		return MedianOfSmallGroup(userInput);
+	}
+	int approximateMedian = FindApproximateMedianOfNumbers(userInput);
+	int frontCounter = 0,backCounter = userInput.size(),tempForSwap,rankOfApproximateMedian;
+	while(frontCounter < backCounter){
+		while(userInput[frontCounter] >= approximateMedian){
+			frontCounter++;
+			if(userInput[frontCounter] == approximateMedian){
+				rankOfApproximateMedian = frontCounter;
+			}
+		}
+		while(userInput[backCounter] < approximateMedian && backCounter > frontCounter){
+			backCounter--;
+			if(userInput[backCounter] == approximateMedian){
+				rankOfApproximateMedian = backCounter;
+			}
+		}
+		if(frontCounter < backCounter){
+			tempForSwap = userInput[frontCounter];
+			userInput[frontCounter] = userInput[backCounter];
+			userInput[backCounter] = tempForSwap;
+		}
+	}
+	if(rankOfApproximateMedian == rank){
+		return userInput[rankOfApproximateMedian];
+	}
+	vector<int> tempVector;
+	if(rankOfApproximateMedian > rank){
+		return MedianOfNumbersON(copy(userInput.begin(),userInput.begin() + rankOfApproximateMedian,tempVector.begin()),rank);
+	}else{
+		return MedianOfNumbersON(copy(userInput.begin()+rankOfApproximateMedian+1,userInput.end(),tempVector.begin()),rank-rankOfApproximateMedian);
+	}
+}
 #endif /* MEDIAOFNUMBERS_H_ */

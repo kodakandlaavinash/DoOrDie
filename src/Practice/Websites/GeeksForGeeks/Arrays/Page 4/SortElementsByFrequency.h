@@ -41,9 +41,9 @@ using namespace __gnu_cxx;
 #ifndef SORTELEMENTSBYFREQUENCY_H_
 #define SORTELEMENTSBYFREQUENCY_H_
 struct auxDS{
-		int value;
-		int frequency;
-	};
+	int value;
+	int frequency;
+};
 bool frequencySortFunction(auxDS firstElement,auxDS secondElement){
 	return firstElement.frequency > secondElement.frequency;
 }
@@ -80,8 +80,90 @@ void SortElementsByFrequency(int userInput[],int sizeOfArray){
 	}
 }
 
-void sortElementsByFrequencyHashSort(int userInput[],int sizeOfArray){
+struct BSTUpgradedNode{
+	int value;
+	int frequency;
+	BSTUpgradedNode *left;
+	BSTUpgradedNode *right;
+	BSTUpgradedNode *parent;
+};
 
+void InsertElementInBSTForFrequencySort(BSTUpgradedNode **ptr,int value){
+	if((*ptr) == NULL){
+		BSTUpgradedNode *newNode;
+		newNode = (BSTUpgradedNode *)malloc(sizeof(BSTUpgradedNode));
+		newNode->frequency = 1;
+		newNode->value = value;
+		newNode->parent = NULL;
+		newNode->left = NULL;
+		newNode->right = NULL;
+	}else{
+		BSTUpgradedNode *crawler = *ptr;
+		while(crawler != NULL){
+			if(crawler->value == value){
+				crawler->frequency += 1;
+				return;
+			}
+			if(crawler->value > value){
+				if(crawler->left != NULL){
+					crawler = crawler->left;
+				}else{
+					crawler->left = (BSTUpgradedNode *)malloc(sizeof(BSTUpgradedNode));
+					crawler->left->frequency = 1;
+					crawler->left->value = value;
+					crawler->left->parent = crawler;
+					crawler->left->left = NULL;
+					crawler->left->right = NULL;
+					return;
+				}
+			}else{
+				if(crawler->right != NULL){
+					crawler = crawler->right;
+				}else{
+					crawler->right = (BSTUpgradedNode *)malloc(sizeof(BSTUpgradedNode));
+					crawler->right->frequency = 1;
+					crawler->right->value = value;
+					crawler->right->parent = crawler;
+					crawler->right->left = NULL;
+					crawler->right->right = NULL;
+					return;
+				}
+			}
+		}
+	}
+}
+
+void GetInorderNodesBSTFrequencySort(BSTUpgradedNode *ptr,vector<int> &inOrderNodes){
+	if(ptr == NULL){
+		return;
+	}
+	GetInorderNodesBSTFrequencySort(ptr->left,inOrderNodes);
+	auxDS node;
+	node.value = ptr->value;
+	node.frequency = ptr->frequency;
+	inOrderNodes.push_back(node);
+	GetInorderNodesBSTFrequencySort(ptr->right,inOrderNodes);
+}
+
+void SortElementsByBST(int userInput[],int sizeOfArray){
+	if(userInput == NULL || sizeOfArray == 0){
+		return;
+	}
+	BSTUpgradedNode **rootToBST = null;
+	for(int counter = 0;counter < sizeOfArray;counter++){
+		InsertElementInBSTForFrequencySort(rootToBST,userInput[counter]);
+	}
+	vector<auxDS> inOrderNodes;
+	GetInorderNodesBSTFrequencySort(*rootToBST,inOrderNodes);
+	sort(inOrderNodes.begin(),inOrderNodes.end(),frequencySortFunction);
+	int frequency,fillCounter = -1;
+	for(int counter =0;counter < sizeOfArray;counter++){
+		frequency = inOrderNodes[counter].frequency;
+		while(frequency--){
+			userInput[++fillCounter] = inOrderNodes[counter].value;
+		}
+	}
+	return;
 }
 
 #endif /* SORTELEMENTSBYFREQUENCY_H_ */

@@ -50,7 +50,38 @@ void MergeOverLappingIntervalsON2(interval userInput[],int sizeOfArray){
 	if(userInput == NULL || sizeOfArray == 0){
 		return NULL;
 	}
+	for(int counter = 0;counter < sizeOfArray;counter++){
 
+	}
 }
+
+bool sortFunctionOverLappingInterval(interval left,interval right){
+	return left.startInterval < right.startInterval?true:false;
+}
+
+void MergeOverLappingIntervalON(interval userInput[],int sizeOfArray){
+	if(userInput == NULL || sizeOfArray == 0){
+		return;
+	}
+	sort(userInput,userInput+sizeOfArray,sortFunctionOverLappingInterval);
+	stack<interval> auxSpace;
+	auxSpace.push(userInput[0]);
+	interval currentInterval;
+	for(int counter = 1;counter < sizeOfArray;counter++){
+		currentInterval= auxSpace.top();
+		if(userInput[counter].startInterval < userInput[counter].endInterval){
+			currentInterval.endInterval = max(currentInterval.endInterval,userInput[counter].endInterval);
+			auxSpace.pop();
+			auxSpace.push(currentInterval);
+		}else{
+			auxSpace.push(userInput[counter]);
+		}
+	}
+	while(!auxSpace.empty()){
+		printf("{%d,%d}",auxSpace.top().startInterval,auxSpace.top().endInterval);
+		auxSpace.pop();
+	}
+}
+
 
 #endif /* MERGEOVERLAPPINGINTERVAL_H_ */

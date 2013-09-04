@@ -1,7 +1,7 @@
 /*
- * FindMissingNumber.h
- *	http://www.careercup.com/question?id=5564407157358592
- *  Created on: Aug 20, 2013
+ * FindAllMeaningfulWords.h
+ *	http://www.careercup.com/question?id=15496741
+ *  Created on: Aug 31, 2013
  *      Author: Avinash
  */
 //
@@ -38,9 +38,8 @@ using namespace __gnu_cxx;
 //	return -1;
 //}
 
-#ifndef FINDMISSINGNUMBER_H_
-#define FINDMISSINGNUMBER_H_
+#ifndef FINDALLMEANINGFULWORDS_H_
+#define FINDALLMEANINGFULWORDS_H_
 
 
-
-#endif /* FINDMISSINGNUMBER_H_ */
+#endif /* FINDALLMEANINGFULWORDS_H_ */

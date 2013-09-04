@@ -1,7 +1,7 @@
 /*
- * FindMissingNumber.h
- *	http://www.careercup.com/question?id=5564407157358592
- *  Created on: Aug 20, 2013
+ * SnakeAndLadders.h
+ *
+ *  Created on: Sep 4, 2013
  *      Author: Avinash
  */
 //
@@ -38,9 +38,8 @@ using namespace __gnu_cxx;
 //	return -1;
 //}
 
-#ifndef FINDMISSINGNUMBER_H_
-#define FINDMISSINGNUMBER_H_
+#ifndef SNAKEANDLADDERS_H_
+#define SNAKEANDLADDERS_H_
 
 
-
-#endif /* FINDMISSINGNUMBER_H_ */
+#endif /* SNAKEANDLADDERS_H_ */

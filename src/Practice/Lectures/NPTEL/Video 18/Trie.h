@@ -28,7 +28,7 @@
 #include <stack>
 #include <queue>
 #include <limits.h>
-
+#include <locale>
 using namespace std;
 using namespace __gnu_cxx;
 
@@ -57,27 +57,45 @@ trieNode *BuildTrieForUserInputStrings(vector<string> userInput){
 	string userInputAtomString;
 	int index;
 	trieNode *trieCrawler;
+	root = (trieNode *)malloc(sizeof(trieNode));
 	for(int crawler =0;crawler < userInput.size();crawler++){
 		userInputAtomString = userInput[crawler];
-		for(int stringCrawler = 0;stringCrawler < userInputAtomString.length();stringCrawler){
-			if('a' >= userInputAtomString[stringCrawler] && userInputAtomString[stringCrawler] <= 'z'){
-				index = userInputAtomString[stringCrawler] - 'a';
-			}else{
-				if('A' >= userInputAtomString[stringCrawler] && userInputAtomString[stringCrawler] <= 'Z'){
-					index = userInputAtomString[stringCrawler] - 'z';
-				}else{
-					return NULL;
-				}
-			}
-
-			if(trieCrawler->truthValue[index] != true){
+		userInputAtomString = tolower(userInputAtomString);
+		trieCrawler = root;
+		for(int stringCounter = 0;stringCounter < userInputAtomString.length();stringCounter++){
+			index = userInputAtomString[stringCounter]-'a';
+			if(trieCrawler->truthValue[index]){
 				trieCrawler = trieCrawler->alphabets[index];
 			}else{
-
+				trieCrawler->alphabets[index] = (trieNode *)malloc(sizeof(trieNode));
+				for(int pointerCounter = 0;pointerCounter < 26;pointerCounter++){
+					trieCrawler->alphabets[index]->alphabets[pointerCounter] = NULL;
+					trieCrawler->alphabets[index]->truthValue[pointerCounter] = false;
+				}
+				trieCrawler->alphabets[index]->truthValue[index] = true;
+				trieCrawler = trieCrawler->alphabets[index];
 			}
 		}
 	}
-
 }
 
+bool SearchStringInTrie(trieNode *ptr,string searchString){
+	if(searchString == NULL || searchString.length() == 0){
+		return true;
+	}
+	if(ptr  == NULL){
+		return false;
+	}
+	trieNode *crawler = ptr;
+	int userInputCrawler,index;
+	searchString = tolower(searchString);
+	for(userInputCrawler = 0;userInputCrawler < searchString.length();userInputCrawler++){
+		index = searchString[userInputCrawler] - 'a';
+		if(!crawler->truthValue[index]){
+			return false;
+		}
+		crawler = crawler->alphabets[index];
+	}
+	return true;
+}
 #endif /* TRIE_H_ */

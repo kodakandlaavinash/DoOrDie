@@ -41,8 +41,31 @@ using namespace __gnu_cxx;
 #ifndef GENERATEPRIMENUMBERS_H_
 #define GENERATEPRIMENUMBERS_H_
 
-vector<int> GeneratePrimeNumbers(int startPoint,int endPoint){
+vector<int> primeNumbers;
 
+/**
+ * Tested
+ */
+vector<int> generatePrimeNumbersSieve(int userInput){
+	vector<bool> truthValue(userInput);
+	for(int counter = 0;counter < userInput;counter++){
+		truthValue[counter] = true;
+	}
+	for(int counter = 2;counter <= userInput;counter++){
+		if(truthValue[counter]){
+			int multiplicationCounter = 2;
+			for(int value = counter*multiplicationCounter;value <= userInput;value =counter*multiplicationCounter){
+				truthValue[value] = false;
+				multiplicationCounter++;
+			}
+		}
+	}
+	for(int counter = 2;counter <= userInput;counter++){
+		if(truthValue[counter]){
+			primeNumbers.push_back(counter);
+		}
+	}
+	return primeNumbers;
 }
 
 #endif /* GENERATEPRIMENUMBERS_H_ */

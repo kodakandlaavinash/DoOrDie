@@ -1,0 +1,63 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+
+
+
+
+public class GenerateSqlStatementsCCQM {
+
+	public static void PrintCommonSubStrings(String userInput1,String userInput2,int length){
+		HashMap<String,Integer> frequencyMapOfSubStrings = new HashMap<String, Integer>();
+		HashMap<Integer,Integer> result = new HashMap<Integer, Integer>();
+		String subString;
+		for(int subStringLengthCounter = 1;subStringLengthCounter <= length;subStringLengthCounter++){
+			for(int counter = 0;counter <  userInput1.length()- subStringLengthCounter +1;counter += 1){
+				subString = userInput1.substring(counter, counter+subStringLengthCounter);
+				if(frequencyMapOfSubStrings.containsKey(subString)){
+					frequencyMapOfSubStrings.put(subString, frequencyMapOfSubStrings.get(subString)+1);
+				}else{
+					frequencyMapOfSubStrings.put(subString, 1);
+				}
+			}
+		}
+		
+		for(int subStringLengthCounter = 1;subStringLengthCounter <= length;subStringLengthCounter++){
+			for(int counter = 0;counter <  userInput2.length()- subStringLengthCounter +1;counter += 1){
+				subString = userInput2.substring(counter, counter+subStringLengthCounter);
+				if(frequencyMapOfSubStrings.containsKey(subString)){
+					if(result.containsKey(subStringLengthCounter)){
+						result.put(subStringLengthCounter, result.get(subStringLengthCounter)+frequencyMapOfSubStrings.get(subString));
+					}else{
+						result.put(subStringLengthCounter,frequencyMapOfSubStrings.get(subString));
+					}
+				}
+			}
+		}
+		
+		for (int counter= 1;counter <= length;counter++) {
+			if(result.containsKey(counter)){
+				System.out.print(result.get(counter)+" ");
+			}else{
+				System.out.print(0+" ");
+			}
+		}
+		System.out.print("\n");
+	}
+
+	public static void main(String []args){
+		int noOfTestCases,length;
+		String userInputString1,userInputString2;
+		Scanner terminalInput = new Scanner(System.in);
+		noOfTestCases = terminalInput.nextInt();
+		terminalInput.nextLine();
+		while(noOfTestCases > 0){
+			userInputString1 = terminalInput.nextLine();
+			userInputString2 = terminalInput.nextLine();
+			length = terminalInput.nextInt();
+			PrintCommonSubStrings(userInputString1, userInputString2, length);
+			noOfTestCases--;
+			terminalInput.nextLine();
+		}
+	}
+}
